@@ -2,10 +2,7 @@ import React from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredients from '../../app/utils/data';
-import {
-	IngredientGroup,
-	typeTranslations,
-} from './ingredient-group/ingredient-group';
+import { IngredientGroup } from './ingredient-group/ingredient-group';
 
 export const BurgerIngredients = () => {
 	const handleClick = () => {

@@ -17,22 +17,33 @@ export const BurgerConstructor = () => {
 		<div className={`${styles.container} pb-4 `}>
 			<span className={styles.spacer}></span>
 			<div className={styles.list}>
-				{ingredients.slice(0, 10).map((ingredient) => (
-					<div key={ingredient._id} className='pl-4'>
-						<DragIcon type='primary' className={styles.drag_icon} />
-						<ConstructorElement
-							text={ingredient.name}
-							price={ingredient.price}
-							thumbnail={ingredient.image}></ConstructorElement>
-					</div>
-				))}
-				<div className='pl-4'>
-					<DragIcon type='primary' className={styles.drag_icon} />
-					<ConstructorElement
-						text={firstBun.name}
-						price={firstBun.price}
-						thumbnail={firstBun.image}></ConstructorElement>
+				<ConstructorElement
+					text={firstBun.name + ' (верх)'}
+					type='top'
+					isLocked={true}
+					price={firstBun.price}
+					thumbnail={firstBun.image}
+					extraClass='ml-10'></ConstructorElement>
+				<div className={styles.scrollable}>
+					{ingredients
+						.filter((ingredient) => ingredient.type !== 'bun')
+						.map((ingredient) => (
+							<div key={ingredient._id} className='pl-4'>
+								<DragIcon type='primary' className={styles.drag_icon} />
+								<ConstructorElement
+									text={ingredient.name}
+									price={ingredient.price}
+									thumbnail={ingredient.image}></ConstructorElement>
+							</div>
+						))}
 				</div>
+				<ConstructorElement
+					text={firstBun.name + ' (низ)'}
+					type='bottom'
+					isLocked={true}
+					price={firstBun.price}
+					thumbnail={firstBun.image}
+					extraClass='ml-10'></ConstructorElement>
 			</div>
 			<div className={styles.footer}>
 				<div>

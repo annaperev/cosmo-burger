@@ -28,8 +28,14 @@
     flex-direction: column;
     gap: 16px;
     max-height: calc(100% - 120px - 100px);
-    overflow:scroll;
-    overflow-x:hidden;
+}
+
+.scrollable{
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	overflow:scroll;
+	overflow-x:hidden;
 }
 
 .drag_icon{
