@@ -1,27 +1,15 @@
-.logo {
-	height: 6em;
-	width: auto;
-	padding: 1.5em;
-	will-change: filter;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react {
-	animation: logo-spin infinite 20s linear;
+.container {
+	display: grid;
+	grid-template-columns: 1fr 600px 40px 600px 1fr;
+	grid-template-rows: 88px calc(100vh - 88px);
+	overflow: hidden;
 }
 
-.card {
-	padding: 2em;
+.header { grid-area: 1 / 2 / 2 / 5; }
+
+.content {
 	display: flex;
-	justify-content: center;
-}
-
-@keyframes logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+	flex-direction: row;
+	height: calc(100vh - 88px);
+	grid-area: 2 / 2 / 3 / 5;
 }

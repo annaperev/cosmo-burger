@@ -1,0 +1,15 @@
+.container{
+    width: 600px;
+    height: 100%;
+}
+
+.component_type_tab{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.list{
+    height: calc(100% - 170px);
+    overflow: hidden auto;
+}

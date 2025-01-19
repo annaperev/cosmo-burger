@@ -1,0 +1,12 @@
+.container{
+    display: grid;
+    place-items: center center;
+    width: 272px;
+    height: 208px;
+}
+
+.price_container{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}

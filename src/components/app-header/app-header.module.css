@@ -1,0 +1,33 @@
+.navigation_panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    width: 100%;
+}
+
+.left {
+    display: flex;
+    grid-row: 1;
+    grid-column: 1;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.center {
+    grid-column: 2;
+    flex-grow: 1;
+    justify-self: center;
+}
+
+.right {
+    display: flex;
+    grid-column: 3;
+    justify-self: end;
+}
+
+.icon_link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
