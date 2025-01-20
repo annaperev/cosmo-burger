@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredients from '../../app/utils/data';
-import { IngredientGroup } from './ingredient-group/ingredient-group';
+import {
+	IngredientGroup,
+	typeTranslations,
+} from './ingredient-group/ingredient-group';
+import { Ingredient } from '../../types';
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients: FC<{ ingredients: Ingredient[] }> = ({
+	ingredients,
+}) => {
 	const handleClick = () => {
 		console.log('click');
 	};
@@ -16,31 +21,24 @@ export const BurgerIngredients = () => {
 	return (
 		<div className={styles.container}>
 			<h1 className='text text_type_main-large pt-10 pb-5'>Соберите бургер</h1>
-			{/*/!*todo - не виден текст заголовка:(( *!/*/}
-			{/*<nav className={styles.component_type_tab}>*/}
-			{/*	{uniqueTypes.map((type) => (*/}
-			{/*		<Tab*/}
-			{/*			key={type}*/}
-			{/*			active={type === 'bun'}*/}
-			{/*			onClick={handleClick}*/}
-			{/*			value={typeTranslations[type]}*/}
-			{/*		/>*/}
-			{/*	))}*/}
-			{/*</nav>*/}
 			<nav className={styles.component_type_tab}>
-				<Tab active={true} onClick={handleClick} value={'Булки'}>
-					Булки
-				</Tab>
-				<Tab active={false} onClick={handleClick} value={'Соусы'}>
-					Соусы
-				</Tab>
-				<Tab active={false} onClick={handleClick} value={'Начинки'}>
-					Начинки
-				</Tab>
+				{uniqueTypes.map((type) => (
+					<Tab
+						key={type}
+						active={type === 'bun'}
+						onClick={handleClick}
+						value={type}>
+						{typeTranslations[type]}
+					</Tab>
+				))}
 			</nav>
 			<div className={styles.list}>
 				{uniqueTypes.map((type) => (
-					<IngredientGroup key={type} type={type} />
+					<IngredientGroup
+						key={type}
+						type={type}
+						ingredients={ingredients.filter((i) => i.type === type)}
+					/>
 				))}
 			</div>
 		</div>

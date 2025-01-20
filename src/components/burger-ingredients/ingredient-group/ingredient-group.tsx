@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
-import ingredients from '../../../app/utils/data';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
 import PropTypes from 'prop-types';
 
 import styles from './ingredient-group.module.css';
+import { Ingredient } from '../../../types';
 
 export const typeTranslations: Record<string, string> = {
 	bun: 'Булки',
 	main: 'Начинки',
 	sauce: 'Соусы',
 };
-export const IngredientGroup: FC<{ type: string }> = ({ type }) => {
+export const IngredientGroup: FC<{
+	type: string;
+	ingredients: Ingredient[];
+}> = ({ type, ingredients }) => {
 	const translatedType = typeTranslations[type] || type;
 
 	return (

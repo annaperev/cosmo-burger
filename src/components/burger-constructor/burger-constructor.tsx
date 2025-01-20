@@ -1,5 +1,4 @@
-import React from 'react';
-import ingredients from '../../app/utils/data';
+import React, { FC } from 'react';
 import {
 	Button,
 	ConstructorElement,
@@ -7,8 +6,11 @@ import {
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
+import { Ingredient } from '../../types';
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor: FC<{ ingredients: Ingredient[] }> = ({
+	ingredients,
+}) => {
 	const firstBun = ingredients.find(
 		(ingredient) => ingredient.type === 'bun'
 	) || { name: '', price: 0, image: '' };

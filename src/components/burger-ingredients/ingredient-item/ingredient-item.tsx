@@ -3,14 +3,8 @@ import React, { FC } from 'react';
 import styles from './ingredient-item.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-
-interface Ingredient {
-	_id: string;
-	name: string;
-	type: string;
-	price: number;
-	image: string;
-}
+import { Ingredient } from '../../../types';
+import { Modal } from '../../common/modal/Modal';
 
 export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 	ingredient,
@@ -27,12 +21,14 @@ export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 	);
 };
 
-IngredientItem.propTypes = {
-	ingredient: PropTypes.shape({
-		_id: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
-		type: PropTypes.string.isRequired,
-		price: PropTypes.number.isRequired,
-		image: PropTypes.string.isRequired,
-	}).isRequired,
-};
+PropTypes.shape({
+	_id: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+	price: PropTypes.number.isRequired,
+	image: PropTypes.string.isRequired,
+	proteins: PropTypes.number.isRequired,
+	fat: PropTypes.number.isRequired,
+	carbohydrates: PropTypes.number.isRequired,
+	calories: PropTypes.number.isRequired,
+}).isRequired;
