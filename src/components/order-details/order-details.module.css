@@ -1,0 +1,16 @@
+.container{
+	justify-items: center;
+	width: 640px;
+	height: 598px;
+}
+
+.id {
+	 justify-self: center;
+}
+
+.check_mark {
+	width: 80px;
+	height: 80px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}

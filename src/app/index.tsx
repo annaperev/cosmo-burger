@@ -7,9 +7,9 @@ import { BurgerConstructor } from '../components/burger-constructor/burger-const
 import { useFetch } from './utils/hooks/useFetch';
 
 export const App = () => {
-	const { responseData, isLoading, hasError } = useFetch(
-		'https://norma.nomoreparties.space/api/ingredients'
-	);
+	const url = 'https://norma.nomoreparties.space/api/ingredients';
+
+	const { responseData, isLoading, hasError } = useFetch(url);
 
 	return (
 		<div className={styles.container}>

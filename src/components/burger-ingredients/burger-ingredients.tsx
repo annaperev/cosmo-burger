@@ -10,10 +10,6 @@ import { Ingredient } from '../../types';
 export const BurgerIngredients: FC<{ ingredients: Ingredient[] }> = ({
 	ingredients,
 }) => {
-	const handleClick = () => {
-		console.log('click');
-	};
-
 	const uniqueTypes = Array.from(
 		new Set(ingredients.map((ingredient) => ingredient.type))
 	);
@@ -26,7 +22,7 @@ export const BurgerIngredients: FC<{ ingredients: Ingredient[] }> = ({
 					<Tab
 						key={type}
 						active={type === 'bun'}
-						onClick={handleClick}
+						onClick={() => console.log('click')}
 						value={type}>
 						{typeTranslations[type]}
 					</Tab>
