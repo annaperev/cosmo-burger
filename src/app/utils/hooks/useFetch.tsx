@@ -17,7 +17,12 @@ export const useFetch = (url: string) => {
 
 	useEffect(() => {
 		fetch(url)
-			.then((res) => res.json())
+			.then((res) => {
+				if (res.ok) {
+					return res.json();
+				}
+				return Promise.reject(`Ошибка ${res.status}`);
+			})
 			.then((data) =>
 				setState({
 					responseData: data,
