@@ -1,0 +1,37 @@
+.modal{
+	position: relative;
+	z-index: 2;
+	gap: 0;
+	padding: 40px;
+    background: black;
+	border-radius: 40px;
+	box-shadow: 0 0 10px #4c4cff;
+}
+
+.wrapper{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.header{
+	display: inline-flex;
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+
+.close{
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	color: white;
+	background: black;
+}
+
+
