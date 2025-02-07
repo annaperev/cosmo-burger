@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
@@ -11,7 +11,6 @@ export const Modal: FC<{
 	onClose: () => void;
 	children: React.ReactNode;
 }> = ({ children, header, onClose }) => {
-	// todo не работает закрытие по escape
 	useEffect(() => {
 		const handleEscKey = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
