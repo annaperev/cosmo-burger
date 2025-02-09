@@ -1,9 +1,8 @@
 import { POST_ORDER, POST_ORDER_SUCCESS, POST_ORDER_FAILED } from './actions';
 import { Dispatch } from 'redux';
 import { Ingredient } from '../../types';
-import { BASE_URL } from '../../constants';
+import { request } from '../../utils/request-helper';
 
-const API_URL = BASE_URL + '/orders';
 export const postOrder =
 	({ bun, ingredients }: { bun: Ingredient; ingredients: Ingredient[] }) =>
 	async (dispatch: Dispatch) => {
@@ -14,28 +13,18 @@ export const postOrder =
 		];
 		dispatch({ type: POST_ORDER });
 		try {
-			const response = await fetch(API_URL, {
+			const data = await request('orders', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ ingredients: orderIngredientsIds }),
 			});
-
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-
-			const data = await response.json();
-
-			if (data.success) {
-				dispatch({
-					type: POST_ORDER_SUCCESS,
-					payload: data.order.number,
-				});
-			}
+			dispatch({
+				type: POST_ORDER_SUCCESS,
+				payload: data.order.number,
+			});
 		} catch (error: any) {
-			console.error('Order request failed:', error);
 			dispatch({ type: POST_ORDER_FAILED, payload: error.message });
 		}
 	};
