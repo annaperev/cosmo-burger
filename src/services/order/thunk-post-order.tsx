@@ -7,7 +7,7 @@ const API_URL = BASE_URL + '/orders';
 export const postOrder =
 	({ bun, ingredients }: { bun: Ingredient; ingredients: Ingredient[] }) =>
 	async (dispatch: Dispatch) => {
-		const odredIngredientsIds = [
+		const orderIngredientsIds = [
 			bun._id,
 			...ingredients.map((ing) => ing._id),
 			bun._id,
@@ -16,7 +16,7 @@ export const postOrder =
 		try {
 			const response = await fetch(API_URL, {
 				method: 'POST',
-				body: JSON.stringify({ ingredients: odredIngredientsIds }),
+				body: JSON.stringify({ ingredients: orderIngredientsIds }),
 			});
 
 			if (!response.ok) {
