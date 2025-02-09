@@ -62,7 +62,6 @@
 		"@redux-devtools/extension": "^3.3.0",
 		"@reduxjs/toolkit": "^2.5.1",
 		"@ya.praktikum/react-developer-burger-ui-components": "^1.14.2",
-		"axios": "^1.7.9",
 		"clsx": "^2.1.0",
 		"core-js": "^3.38.1",
 		"react": "^18.2.0",
