@@ -4,8 +4,9 @@ import {
 	GET_INGREDIENTS_SUCCESS,
 } from './actions';
 import { Dispatch } from 'redux';
+import { BASE_URL } from '../../constants';
 
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const API_URL = BASE_URL + '/ingredients';
 export const fetchIngredients = () => async (dispatch: Dispatch) => {
 	dispatch({ type: GET_INGREDIENTS });
 

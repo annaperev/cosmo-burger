@@ -1,9 +1,9 @@
 import { POST_ORDER, POST_ORDER_SUCCESS, POST_ORDER_FAILED } from './actions';
 import { Dispatch } from 'redux';
-import axios from 'axios';
 import { Ingredient } from '../../types';
+import { BASE_URL } from '../../constants';
 
-const API_URL = 'https://norma.nomoreparties.space/api/orders';
+const API_URL = BASE_URL + '/orders';
 export const postOrder =
 	({ bun, ingredients }: { bun: Ingredient; ingredients: Ingredient[] }) =>
 	async (dispatch: Dispatch) => {
@@ -14,13 +14,21 @@ export const postOrder =
 		];
 		dispatch({ type: POST_ORDER });
 		try {
-			const response = await axios.post(API_URL, {
-				ingredients: odredIngredientsIds,
+			const response = await fetch(API_URL, {
+				method: 'POST',
+				body: JSON.stringify({ ingredients: odredIngredientsIds }),
 			});
-			if (response.data.success) {
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			const data = await response.json();
+
+			if (data.success) {
 				dispatch({
 					type: POST_ORDER_SUCCESS,
-					payload: response.data.order.number,
+					payload: data.order.number,
 				});
 			}
 		} catch (error: any) {

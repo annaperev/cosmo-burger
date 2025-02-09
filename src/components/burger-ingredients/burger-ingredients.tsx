@@ -66,9 +66,8 @@ export const BurgerIngredients = () => {
 					</nav>
 					<div className={styles.list} onScroll={handleScroll}>
 						{ingredientsTypes.map((type, index) => (
-							<div ref={(el) => (sectionsRef.current[index] = el)}>
+							<div ref={(el) => (sectionsRef.current[index] = el)} key={type}>
 								<IngredientGroup
-									key={type}
 									type={type}
 									ingredients={ingredients.filter((i) => i.type === type)}
 								/>

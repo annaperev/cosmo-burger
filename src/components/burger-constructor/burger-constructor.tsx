@@ -132,7 +132,8 @@ export const BurgerConstructor = () => {
 					size='large'
 					onClick={() =>
 						bun && dispatch(postOrder({ bun: bun, ingredients: ingredients }))
-					}>
+					}
+					disabled={!bun}>
 					Оформить заказ
 				</Button>
 			</div>
