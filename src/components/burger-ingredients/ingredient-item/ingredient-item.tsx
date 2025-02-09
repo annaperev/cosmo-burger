@@ -22,7 +22,9 @@ export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 
 	const dispatch = useAppDispatch();
 
-	const count = useAppSelector(calcIngredientCounter);
+	const count = useAppSelector((state) =>
+		calcIngredientCounter(state, ingredient)
+	);
 
 	return (
 		<div

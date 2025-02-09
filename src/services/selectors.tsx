@@ -35,16 +35,15 @@ export const calcTotalSum = createSelector(
 );
 
 export const calcIngredientCounter = createSelector(
-	[getIngredient, getConstructorIngredients],
-	(ingredientState, burgerConstructorIngredients) => {
-		const ingredient = ingredientState.ingredient;
+	[getConstructorIngredients, (_, ingredient) => ingredient],
+	(burgerConstructorIngredients, ingredient) => {
 		const bun = burgerConstructorIngredients.bun;
 		const ingredients = burgerConstructorIngredients.ingredients;
 		let count;
-		if (ingredient?.type === 'bun') {
+		if (ingredient.type === 'bun') {
 			count = bun?._id === ingredient._id ? 2 : 0;
 		} else {
-			count = ingredients.filter((i) => i._id === ingredient?._id).length;
+			count = ingredients.filter((i) => i._id === ingredient._id).length;
 		}
 		return count;
 	}
