@@ -10,10 +10,11 @@ import { useAppDispatch, useAppSelector } from '../services/store';
 import { CLOSE_MODAL_INGREDIENT } from '../services/ingredient/actions';
 import { OrderDetails } from '../components/order-details/order-details';
 import { EMPTY_ORDER_NUMBER } from '../services/order/actions';
+import { getIngredient, getOrderNumber } from '../services/selectors';
 
 export const App = () => {
-	const { ingredient } = useAppSelector((store) => store.ingredient);
-	const { orderNumber } = useAppSelector((store) => store.order);
+	const { ingredient } = useAppSelector(getIngredient);
+	const { orderNumber } = useAppSelector(getOrderNumber);
 
 	const dispatch = useAppDispatch();
 

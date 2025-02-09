@@ -7,6 +7,7 @@ import { Ingredient } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { OPEN_MODAL_INGREDIENT } from '../../../services/ingredient/actions';
 import { useDrag } from 'react-dnd';
+import { calcIngredientCounter } from '../../../services/selectors';
 
 export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 	ingredient,
@@ -19,17 +20,9 @@ export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 		}),
 	}));
 
-	const { bun, ingredients } = useAppSelector(
-		(store) => store.burgerConstructor
-	);
 	const dispatch = useAppDispatch();
 
-	let count;
-	if (ingredient.type === 'bun') {
-		count = bun?._id === ingredient._id ? 2 : 0;
-	} else {
-		count = ingredients.filter((i) => i._id === ingredient._id).length;
-	}
+	const count = useAppSelector(calcIngredientCounter);
 
 	return (
 		<div

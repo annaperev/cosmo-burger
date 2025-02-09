@@ -9,17 +9,19 @@ const initialState = {
 	ingredients: [],
 	isFetching: false,
 	isFailed: false,
+	error: '',
 };
 
 export type IngredientsState = {
 	isFetching: boolean;
 	isFailed: boolean;
 	ingredients: Ingredient[];
+	error: string;
 };
 
 export const ingredientsReducer = (
 	state = initialState,
-	action: { type: string; payload: Ingredient[] }
+	action: { type: string; payload: any }
 ): IngredientsState => {
 	switch (action.type) {
 		case GET_INGREDIENTS:
@@ -40,6 +42,7 @@ export const ingredientsReducer = (
 				...state,
 				isFailed: true,
 				isFetching: false,
+				error: action.payload,
 			};
 		default:
 			return state;

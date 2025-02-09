@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import {
 	Button,
 	ConstructorElement,
@@ -7,38 +7,36 @@ import {
 import styles from './burger-constructor.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import {
-	ADD_BUN,
-	ADD_CONSTRUCTOR_INGREDIENT,
-	REMOVE_CONSTRUCTOR_INGREDIENT,
-	REORDER_INGREDIENTS,
+	addBun,
+	addConstructorIngredient,
+	removeConstructorIngredient,
+	reorderIngredients,
 } from '../../services/burger-constructor/actions';
 import { Ingredient } from '../../types';
 import { useDrop } from 'react-dnd';
-import { v4 as uuidv4 } from 'uuid';
 import { postOrder } from '../../services/order/thunk-post-order';
 import { DraggableIngredient } from './constructor-element/constructor-element';
+import {
+	calcTotalSum,
+	getConstructorIngredients,
+} from '../../services/selectors';
 
 export const BurgerConstructor = () => {
 	//global state
-	const { bun, ingredients } = useAppSelector(
-		(store) => store.burgerConstructor
-	);
+	const { bun, ingredients } = useAppSelector(getConstructorIngredients);
 	const dispatch = useAppDispatch();
 	const handleRemove = (ingredient: Ingredient) => {
-		dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, payload: ingredient });
+		dispatch(removeConstructorIngredient(ingredient));
 	};
 
 	//drop
 	const [{ isOver }, drop] = useDrop(() => ({
 		accept: 'ingredient',
-		drop: (item: Ingredient) => {
-			if (item.type === 'bun') {
-				dispatch({ type: ADD_BUN, payload: item });
+		drop: (ingredient: Ingredient) => {
+			if (ingredient.type === 'bun') {
+				dispatch(addBun(ingredient));
 			} else {
-				dispatch({
-					type: ADD_CONSTRUCTOR_INGREDIENT,
-					payload: { ...item, key: uuidv4() },
-				});
+				dispatch(addConstructorIngredient(ingredient));
 			}
 		},
 		collect: (monitor) => ({
@@ -49,21 +47,12 @@ export const BurgerConstructor = () => {
 	//sortable list
 	const moveIngredient = useCallback(
 		(dragIndex: number, hoverIndex: number) => {
-			dispatch({
-				type: REORDER_INGREDIENTS,
-				payload: { ingredients, dragIndex, hoverIndex },
-			});
+			dispatch(reorderIngredients(ingredients, dragIndex, hoverIndex));
 		},
 		[ingredients, dispatch]
 	);
 
-	const sumWithoutBun = useMemo(() => {
-		let sum = 0;
-		ingredients.forEach((ingredient) => (sum += ingredient.price));
-		return sum;
-	}, [ingredients]);
-
-	const totalSum = bun ? sumWithoutBun + bun.price * 2 : sumWithoutBun;
+	const totalSum = useAppSelector(calcTotalSum);
 
 	const BunElement = ({
 		bun,

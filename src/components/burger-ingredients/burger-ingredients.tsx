@@ -7,14 +7,13 @@ import {
 } from './ingredient-group/ingredient-group';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { fetchIngredients } from '../../services/ingredients/thunk-get-ingredients';
+import { getIngredients } from '../../services/selectors';
 
 export const BurgerIngredients = () => {
 	const [activeTab, setActiveTab] = useState(0);
 	const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-	const { ingredients, isFetching, isFailed } = useAppSelector(
-		(store) => store.ingredients
-	);
+	const { ingredients, isFetching, isFailed } = useAppSelector(getIngredients);
 
 	const dispatch = useAppDispatch();
 
