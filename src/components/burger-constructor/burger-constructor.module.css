@@ -42,3 +42,41 @@
     height: 32px;
 }
 
+.empty_top_bun,
+.empty_bottom_bun,
+.empty_ingredient {
+	align-content: center;
+	height: 80px;
+	margin: 0 20px 0 40px;
+	text-align: center;
+	background-color: var(--background-element);
+}
+
+.empty_top_bun {
+	border-radius: 70px 70px 20px 20px;
+}
+
+.empty_bottom_bun {
+	border-radius: 20px 20px 70px 70px;
+}
+
+.empty_ingredient {
+	border-radius: 40px;
+}
+
+@keyframes squeeze {
+	0% {
+		transform: scaleY(0);
+		opacity: 0;
+	}
+
+	100% {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+}
+
+.squeezed {
+	transform-origin: center center;
+	animation: squeeze 0.5s forwards;
+}

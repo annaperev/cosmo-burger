@@ -1,66 +1,125 @@
-import React, { FC } from 'react';
+import React, { useCallback } from 'react';
 import {
 	Button,
 	ConstructorElement,
 	CurrencyIcon,
-	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import {
+	addBun,
+	addConstructorIngredient,
+	removeConstructorIngredient,
+	reorderIngredients,
+} from '../../services/burger-constructor/actions';
 import { Ingredient } from '../../types';
-import { Modal } from '../common/modal/modal';
-import { OrderDetails } from '../order-details/order-details';
+import { useDrop } from 'react-dnd';
+import { postOrder } from '../../services/order/thunk-post-order';
+import { DraggableIngredient } from './constructor-element/constructor-element';
+import {
+	calcTotalSum,
+	getConstructorIngredients,
+} from '../../services/selectors';
 
-export const BurgerConstructor: FC<{ ingredients: Ingredient[] }> = ({
-	ingredients,
-}) => {
-	const firstBun = ingredients.find(
-		(ingredient) => ingredient.type === 'bun'
-	) || { name: '', price: 0, image: '' };
+export const BurgerConstructor = () => {
+	//global state
+	const { bun, ingredients } = useAppSelector(getConstructorIngredients);
+	const dispatch = useAppDispatch();
+	const handleRemove = (ingredient: Ingredient) => {
+		dispatch(removeConstructorIngredient(ingredient));
+	};
 
-	const ingredientsWithoutBun = ingredients.filter(
-		(ingredient) => ingredient.type !== 'bun'
+	//drop
+	const [{ isOver }, drop] = useDrop(() => ({
+		accept: 'ingredient',
+		drop: (ingredient: Ingredient) => {
+			if (ingredient.type === 'bun') {
+				dispatch(addBun(ingredient));
+			} else {
+				dispatch(addConstructorIngredient(ingredient));
+			}
+		},
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+		}),
+	}));
+
+	//sortable list
+	const moveIngredient = useCallback(
+		(dragIndex: number, hoverIndex: number) => {
+			dispatch(reorderIngredients(ingredients, dragIndex, hoverIndex));
+		},
+		[ingredients, dispatch]
 	);
 
-	const totalSum = ingredients.reduce((sum, item) => {
-		if (item.type === 'bun') {
-			return sum + item.price * 2;
-		}
-		return sum + item.price;
-	}, 0);
+	const totalSum = useAppSelector(calcTotalSum);
 
-	const [isModalOpen, setIsModalOpen] = React.useState(false);
-
-	const toggleModal = () => setIsModalOpen(!isModalOpen);
+	const BunElement = ({
+		bun,
+		type,
+		emptyClass,
+		emptyText,
+	}: {
+		bun: Ingredient | null;
+		type: 'top' | 'bottom';
+		emptyClass: string;
+		emptyText: string;
+	}) => {
+		return bun ? (
+			<ConstructorElement
+				text={`${bun.name} (${type === 'top' ? 'верх' : 'низ'})`}
+				type={type}
+				isLocked={true}
+				price={bun.price}
+				thumbnail={bun.image}
+				extraClass='ml-10'
+			/>
+		) : (
+			<div className={`${emptyClass} 'text text_type_digits-medium'`}>
+				{emptyText}
+			</div>
+		);
+	};
 
 	return (
-		<div className={`${styles.container} pb-4 `}>
+		<div
+			ref={drop}
+			className={`${styles.container} pb-4`}
+			style={{ opacity: isOver ? 0.5 : 1 }}>
 			<span className={styles.spacer}></span>
 			<div className={styles.list}>
-				<ConstructorElement
-					text={firstBun.name + ' (верх)'}
+				<BunElement
+					bun={bun}
 					type='top'
-					isLocked={true}
-					price={firstBun.price}
-					thumbnail={firstBun.image}
-					extraClass='ml-10'></ConstructorElement>
+					emptyClass={styles.empty_top_bun}
+					emptyText='Выберите булки'
+				/>
 				<div className={styles.scrollable}>
-					{ingredientsWithoutBun.map((ingredient) => (
-						<div key={ingredient._id} className='pl-4'>
-							<DragIcon type='primary' className={styles.drag_icon} />
-							<ConstructorElement
-								text={ingredient.name}
-								price={ingredient.price}
-								thumbnail={ingredient.image}></ConstructorElement>
+					{ingredients.length > 0 ? (
+						ingredients.map((ingredient, index) => (
+							<div key={ingredient.key} className={`pl-4 ${styles.squeezed}`}>
+								<DraggableIngredient
+									key={ingredient.key}
+									index={index}
+									ingredient={ingredient}
+									moveIngredient={moveIngredient}
+									handleRemove={handleRemove}
+								/>
+							</div>
+						))
+					) : (
+						<div
+							className={`${styles.empty_ingredient} 'text text_type_digits-medium'`}>
+							Выберите начинку
 						</div>
-					))}
+					)}
 				</div>
-				<ConstructorElement
-					text={firstBun.name + ' (низ)'}
+				<BunElement
+					bun={bun}
 					type='bottom'
-					isLocked={true}
-					price={firstBun.price}
-					thumbnail={firstBun.image}
-					extraClass='ml-10'></ConstructorElement>
+					emptyClass={styles.empty_bottom_bun}
+					emptyText='Выберите булки'
+				/>
 			</div>
 			<div className={styles.footer}>
 				<div>
@@ -71,16 +130,13 @@ export const BurgerConstructor: FC<{ ingredients: Ingredient[] }> = ({
 					htmlType='submit'
 					type='primary'
 					size='large'
-					onClick={toggleModal}>
+					onClick={() =>
+						bun && dispatch(postOrder({ bun: bun, ingredients: ingredients }))
+					}
+					disabled={!bun}>
 					Оформить заказ
 				</Button>
 			</div>
-
-			{isModalOpen && (
-				<Modal header='' onClose={toggleModal}>
-					<OrderDetails />
-				</Modal>
-			)}
 		</div>
 	);
 };

@@ -1,12 +1,26 @@
 .container{
     display: grid;
+	grid-template-columns: repeat(2, 1fr);
     place-items: center center;
-    width: 272px;
-    height: 208px;
-}
+    width: 242px;
+    height: 208px;}
 
 .price_container{
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.div1{
+	grid-area: 1 / 1 / 2 / 2;
+}
+
+.counter{
+	grid-area: 1 / 2 / 2 / 3;
+	align-self: start;
+	text-align: center;
+	background: blueviolet;
+	border-radius: 50%;
+	width: 24px;
+	padding: 2px;
 }
