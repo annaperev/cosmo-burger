@@ -2,6 +2,7 @@ import { POST_ORDER, POST_ORDER_SUCCESS, POST_ORDER_FAILED } from './actions';
 import { Dispatch } from 'redux';
 import { Ingredient } from '../../types';
 import { request } from '../../utils/request-helper';
+import { CLEAR_CONSTRUCTOR } from '../burger-constructor/actions';
 
 export const postOrder =
 	({ bun, ingredients }: { bun: Ingredient; ingredients: Ingredient[] }) =>
@@ -24,6 +25,7 @@ export const postOrder =
 				type: POST_ORDER_SUCCESS,
 				payload: data.order.number,
 			});
+			dispatch({ type: CLEAR_CONSTRUCTOR });
 		} catch (error: any) {
 			dispatch({ type: POST_ORDER_FAILED, payload: error.message });
 		}
