@@ -12,7 +12,7 @@
 
 .footer{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     align-items: center;
     align-self: end;
     gap: 40px;

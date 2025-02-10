@@ -20,10 +20,12 @@ import {
 	calcTotalSum,
 	getConstructorIngredients,
 } from '../../services/selectors';
+import { Loader } from '../common/loader/loader';
 
 export const BurgerConstructor = () => {
 	//global state
 	const { bun, ingredients } = useAppSelector(getConstructorIngredients);
+	const { isPosting } = useAppSelector((state) => state.order);
 	const dispatch = useAppDispatch();
 	const handleRemove = (ingredient: Ingredient) => {
 		dispatch(removeConstructorIngredient(ingredient));
@@ -122,6 +124,7 @@ export const BurgerConstructor = () => {
 				/>
 			</div>
 			<div className={styles.footer}>
+				{isPosting && <Loader size={'medium'} inverse={true} />}
 				<div>
 					<span className='text text_type_digits-medium'>{totalSum}</span>
 					<CurrencyIcon type='primary' />
