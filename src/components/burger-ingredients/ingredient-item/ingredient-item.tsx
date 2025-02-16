@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { OPEN_MODAL_INGREDIENT } from '../../../services/ingredient/actions';
 import { useDrag } from 'react-dnd';
 import { calcIngredientCounter } from '../../../services/selectors';
+import { useLocation, Link } from 'react-router-dom';
 
 export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 	ingredient,
@@ -26,28 +27,47 @@ export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 		calcIngredientCounter(state, ingredient)
 	);
 
+	const location = useLocation();
+	const ingredientId = ingredient._id;
+	console.log('ingredientId: ', ingredientId);
+
 	return (
-		<div
-			ref={drag}
-			className={styles.container}
-			style={{ opacity: isDragging ? 0.5 : 1 }}
-			onClick={() =>
-				dispatch({ type: OPEN_MODAL_INGREDIENT, payload: ingredient })
-			}>
-			<div className={styles.div1}>
-				<img src={ingredient.image} alt={ingredient.name} />
-				<div className={styles.price_container}>
-					<p className='text text_type_digits-default'>{ingredient.price}</p>
-					<CurrencyIcon type={'primary'} />
+		<Link
+			key={ingredientId}
+			to={`/ingredients/${ingredientId}`}
+			state={{ background: location }}>
+			<div
+				ref={drag}
+				className={styles.container}
+				style={{ opacity: isDragging ? 0.5 : 1 }}
+				onClick={() =>
+					dispatch({ type: OPEN_MODAL_INGREDIENT, payload: ingredient })
+				}
+				role='button'
+				tabIndex={0}
+				onKeyDown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						dispatch({
+							type: OPEN_MODAL_INGREDIENT,
+							payload: ingredient,
+						});
+					}
+				}}>
+				<div className={styles.div1}>
+					<img src={ingredient.image} alt={ingredient.name} />
+					<div className={styles.price_container}>
+						<p className='text text_type_digits-default'>{ingredient.price}</p>
+						<CurrencyIcon type={'primary'} />
+					</div>
+					<p className='text text_type_main-default'>{ingredient.name}</p>
 				</div>
-				<p className='text text_type_main-default'>{ingredient.name}</p>
+				{!!count && (
+					<div className={`${styles.counter} text text_type_digits-default`}>
+						{count}
+					</div>
+				)}
 			</div>
-			{!!count && (
-				<div className={`${styles.counter} text text_type_digits-default`}>
-					{count}
-				</div>
-			)}
-		</div>
+		</Link>
 	);
 };
 
