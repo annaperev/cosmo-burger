@@ -10,6 +10,7 @@ import { Login } from '../pages/login/login';
 import { Register } from '../pages/login/register/register';
 import { ForgotPassword } from '../pages/login/forgot-password/forgot-password';
 import { ResetPassword } from '../pages/login/reset-password/reset-password';
+import { Profile } from '../pages/profile/profile';
 
 export const App = () => {
 	const location = useLocation();
@@ -35,6 +36,7 @@ export const App = () => {
 				<Route path='/register' element={<Register />} />
 				<Route path='/forgot-password' element={<ForgotPassword />} />
 				<Route path='/reset-password' element={<ResetPassword />} />
+				<Route path='/profile' element={<Profile />} />
 			</Routes>
 
 			{background && (

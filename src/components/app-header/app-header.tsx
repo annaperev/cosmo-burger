@@ -7,6 +7,7 @@ import {
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 export const AppHeader = ({ className }: { className: string }) => {
 	return (
@@ -24,12 +25,19 @@ export const AppHeader = ({ className }: { className: string }) => {
 				</div>
 			</nav>
 			<Logo className={styles.center} />
-			<span className={`${styles.right} ${styles.icon_link}`}>
-				<ProfileIcon type='secondary' />
-				<p className='text text_type_main-default text_color_inactive'>
-					Личный кабинет
-				</p>
-			</span>
+			<NavLink to={'/profile'}>
+				{({ isActive }) => (
+					<span className={`${styles.right} ${styles.icon_link}`}>
+						<ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+						<p
+							className={`text text_type_main-default ${
+								isActive ? 'text_color_primary' : 'text_color_inactive'
+							}`}>
+							Личный кабинет
+						</p>
+					</span>
+				)}
+			</NavLink>
 		</header>
 	);
 };

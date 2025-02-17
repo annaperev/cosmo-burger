@@ -1,0 +1,19 @@
+.container {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 320px 480px;
+	grid-column-gap: 60px;
+	width: 860px;
+}
+
+.navigation_panel{
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.profile{
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
