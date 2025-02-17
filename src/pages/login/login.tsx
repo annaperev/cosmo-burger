@@ -5,6 +5,7 @@ import {
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
 	const [passwordValue, setPassportValue] = React.useState('');
@@ -40,13 +41,13 @@ export const Login = () => {
 					className={'text text_type_main-default text_color_inactive mt-20'}>
 					Вы — новый пользователь?
 				</span>
-				<a> Зарегистрироваться </a>
+				<Link to={'/register'}> Зарегистрироваться </Link>
 				<div />
 				<span
 					className={'text text_type_main-default text_color_inactive mt-4'}>
 					Забыли пароль?
 				</span>
-				<a> Восстановить пароль</a>
+				<Link to={'/forgot-password'}> Восстановить пароль</Link>
 			</div>
 		</div>
 	);

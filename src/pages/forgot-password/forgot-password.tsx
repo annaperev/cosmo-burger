@@ -4,6 +4,7 @@ import {
 	Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ForgotPassword = () => {
 	const [value, setValue] = React.useState('');
@@ -30,7 +31,7 @@ export const ForgotPassword = () => {
 					className={'text text_type_main-default text_color_inactive mt-20'}>
 					Вспомнили пароль?
 				</span>
-				<a> Войти</a>
+				<Link to={'/login'}> Войти</Link>
 				<div />
 			</div>
 		</div>

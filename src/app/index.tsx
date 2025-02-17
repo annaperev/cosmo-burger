@@ -7,9 +7,9 @@ import styles from '../pages/home/home.module.css';
 import { AppHeader } from '../components/app-header/app-header';
 import { NotFound404 } from '../pages/not-found-404/not-found-404';
 import { Login } from '../pages/login/login';
-import { Register } from '../pages/register/register';
-import { ForgotPassword } from '../pages/forgot-password/forgot-password';
-import { ResetPassword } from '../pages/reset-password/reset-password';
+import { Register } from '../pages/login/register/register';
+import { ForgotPassword } from '../pages/login/forgot-password/forgot-password';
+import { ResetPassword } from '../pages/login/reset-password/reset-password';
 
 export const App = () => {
 	const location = useLocation();
