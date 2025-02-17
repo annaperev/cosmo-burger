@@ -6,6 +6,7 @@ import { Modal } from '../components/common/modal/modal';
 import styles from '../pages/home/home.module.css';
 import { AppHeader } from '../components/app-header/app-header';
 import { NotFound404 } from '../pages/not-found-404/not-found-404';
+import { Login } from '../pages/login/login';
 
 export const App = () => {
 	const location = useLocation();
@@ -27,6 +28,7 @@ export const App = () => {
 					element={<IngredientDetails />}
 				/>
 				<Route path='*' element={<NotFound404 />} />
+				<Route path='/login' element={<Login />} />
 			</Routes>
 
 			{background && (

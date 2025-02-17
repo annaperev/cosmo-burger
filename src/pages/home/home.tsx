@@ -17,11 +17,8 @@ export const Home = () => {
 	return (
 		<>
 			<main className={styles.content}>
-				<>
-					<BurgerIngredients />
-
-					<BurgerConstructor />
-				</>
+				<BurgerIngredients />
+				<BurgerConstructor />
 			</main>
 			{orderNumber && (
 				<Modal header='' onClose={() => dispatch({ type: EMPTY_ORDER_NUMBER })}>

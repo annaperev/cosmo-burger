@@ -5,11 +5,15 @@
 	overflow: hidden;
 }
 
-.header { grid-area: 1 / 2 / 2 / 5; }
+.container > * {
+	grid-column: 2 / 5;
+}
+
+.header { grid-row: 1 / 2 }
 
 .content {
 	display: flex;
-	grid-area: 2 / 2 / 3 / 5;
+	grid-row: 2 / 3;
 	flex-direction: row;
 	height: calc(100vh - 88px);
 }
