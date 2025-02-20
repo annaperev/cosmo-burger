@@ -10,7 +10,9 @@ import { Login } from '../pages/login/login';
 import { Register } from '../pages/login/register/register';
 import { ForgotPassword } from '../pages/login/forgot-password/forgot-password';
 import { ResetPassword } from '../pages/login/reset-password/reset-password';
-import { Profile } from '../pages/profile/profile';
+import { Profile } from '../pages/profile-layout/profile';
+import { ProfileLayout } from '../pages/profile-layout/profile-layout';
+import { Orders } from '../pages/profile-layout/orders';
 
 export const App = () => {
 	const location = useLocation();
@@ -36,7 +38,11 @@ export const App = () => {
 				<Route path='/register' element={<Register />} />
 				<Route path='/forgot-password' element={<ForgotPassword />} />
 				<Route path='/reset-password' element={<ResetPassword />} />
-				<Route path='/profile' element={<Profile />} />
+				<Route path='orders' element={<Orders />} />
+				<Route path='/profile' element={<ProfileLayout />}>
+					<Route path='profile' element={<Profile />} />
+					<Route path='orders' element={<Orders />} />
+				</Route>
 			</Routes>
 
 			{background && (
