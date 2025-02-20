@@ -29,7 +29,6 @@ export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
 
 	const location = useLocation();
 	const ingredientId = ingredient._id;
-	console.log('ingredientId: ', ingredientId);
 
 	return (
 		<Link

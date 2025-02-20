@@ -1,10 +1,19 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import { useAppSelector } from '../../services/store';
-import { getIngredient } from '../../services/selectors';
+import { getIngredients } from '../../services/selectors';
+import { useParams } from 'react-router-dom';
 
 export const IngredientDetails = () => {
-	const { ingredient } = useAppSelector(getIngredient);
+	// const { ingredient } = useAppSelector(getIngredient);
+	const ingredientId = useParams<'ingredientId'>();
+	console.log('ingredientId', ingredientId);
+
+	const { ingredients } = useAppSelector(getIngredients);
+
+	const ingredient = ingredients.find(
+		(item) => item._id === ingredientId.ingredientId
+	);
 
 	return (
 		ingredient && (
