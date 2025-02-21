@@ -17,3 +17,7 @@
 	flex-direction: column;
 	gap: 24px;
 }
+
+.profile_buttons{
+	align-self: end;
+}

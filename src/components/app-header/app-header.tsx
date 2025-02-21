@@ -41,7 +41,7 @@ export const AppHeader = ({ className }: { className: string }) => {
 				</NavLink>
 			</nav>
 			<Logo className={styles.center} />
-			<NavLink to={'/profile'}>
+			<NavLink to={'/profile/profile'}>
 				{({ isActive }) => (
 					<span className={`${styles.right} ${styles.icon_link}`}>
 						<ProfileIcon type={isActive ? 'primary' : 'secondary'} />

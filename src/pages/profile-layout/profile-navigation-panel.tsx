@@ -1,8 +1,15 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './profile.module.css';
+import { useAppDispatch } from '../../services/store';
+import { logout } from '../../services/auth/thunk-auth';
 
 export const ProfileNavigationPanel: FC = () => {
+	const dispatch = useAppDispatch();
+	const handleLogoutClick = () => {
+		dispatch(logout());
+	};
+
 	return (
 		<div className={`${styles.navigation_panel} text text_type_main-medium `}>
 			<NavLink
@@ -19,7 +26,9 @@ export const ProfileNavigationPanel: FC = () => {
 				}>
 				История заказов
 			</NavLink>
-			<span className='text_color_inactive'>Выход</span>
+			<span className='text_color_inactive' onClick={handleLogoutClick}>
+				Выход
+			</span>
 			<span className='text text_type_main-small text_color_inactive mt-6'>
 				В этом разделе вы можете изменить свои персональные данные{' '}
 			</span>

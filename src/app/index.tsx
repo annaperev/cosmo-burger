@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Home } from '../pages/home/home';
 import { IngredientDetails } from '../components/ingredient-details/ingredient-details';
@@ -13,8 +13,16 @@ import { ResetPassword } from '../pages/login/reset-password/reset-password';
 import { Profile } from '../pages/profile-layout/profile';
 import { ProfileLayout } from '../pages/profile-layout/profile-layout';
 import { Orders } from '../pages/profile-layout/orders';
+import { useAppDispatch } from '../services/store';
+import { checkUserAuth } from '../services/auth/thunk-auth';
 
 export const App = () => {
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(checkUserAuth());
+	}, []);
+
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;

@@ -6,28 +6,17 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { requestWithRefresh } from '../../utils/request-helper';
+import { useAppDispatch } from '../../services/store';
+import { login } from '../../services/auth/thunk-auth';
 
 export const Login = () => {
 	const [passwordValue, setPassportValue] = React.useState('');
-	const onChange = (e: any) => {
-		setPassportValue(e.target.value);
-	};
-
 	const [emailValue, setEmailValue] = React.useState('');
-	const inputRef = React.useRef(null);
+
+	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-		const data = requestWithRefresh('auth/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ email: emailValue, password: passwordValue }),
-		})
-			.then((res) => console.log(res))
-			.catch((error) => console.log(error));
-		console.log(data);
+		dispatch(login(emailValue, passwordValue));
 	};
 
 	return (
@@ -38,11 +27,10 @@ export const Login = () => {
 				placeholder={'E-mail'}
 				onChange={(e) => setEmailValue(e.target.value)}
 				value={emailValue}
-				ref={inputRef}
 				extraClass={'mt-6'}
 			/>
 			<PasswordInput
-				onChange={onChange}
+				onChange={(e) => setPassportValue(e.target.value)}
 				value={passwordValue}
 				name={'password'}
 				extraClass={'mt-6'}
