@@ -15,7 +15,7 @@ export const Profile: FC = () => {
 
 	const [nameValue, setNameValue] = React.useState(user ? user.name : '');
 	const [emailValue, setEmailValue] = React.useState(user ? user.email : '');
-	const [passwordValue, setPassportValue] = React.useState('blablabla');
+	const [passwordValue, setPassportValue] = React.useState('');
 
 	const handleSaveClick = () => {
 		dispatch(updateUserProfile(nameValue, emailValue));
