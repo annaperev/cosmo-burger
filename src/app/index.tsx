@@ -15,6 +15,7 @@ import { ProfileLayout } from '../pages/profile-layout/profile-layout';
 import { Orders } from '../pages/profile-layout/orders';
 import { useAppDispatch } from '../services/store';
 import { checkUserAuth } from '../services/auth/thunk-auth';
+import { OnlyAuth, OnlyUnAuth } from './protected-route.';
 
 export const App = () => {
 	const dispatch = useAppDispatch();
@@ -42,14 +43,26 @@ export const App = () => {
 					element={<IngredientDetails />}
 				/>
 				<Route path='*' element={<NotFound404 />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/forgot-password' element={<ForgotPassword />} />
-				<Route path='/reset-password' element={<ResetPassword />} />
-				<Route path='orders' element={<Orders />} />
+				<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
+				<Route
+					path='/register'
+					element={<OnlyUnAuth component={<Register />} />}
+				/>
+				<Route
+					path='/forgot-password'
+					element={<OnlyUnAuth component={<ForgotPassword />} />}
+				/>
+				<Route
+					path='/reset-password'
+					element={<OnlyUnAuth component={<ResetPassword />} />}
+				/>
+				<Route path='/orders' element={<OnlyAuth component={<Orders />} />} />
 				<Route path='/profile' element={<ProfileLayout />}>
-					<Route path='profile' element={<Profile />} />
-					<Route path='orders' element={<Orders />} />
+					<Route
+						path='profile'
+						element={<OnlyAuth component={<Profile />} />}
+					/>
+					<Route path='orders' element={<OnlyAuth component={<Orders />} />} />
 				</Route>
 			</Routes>
 

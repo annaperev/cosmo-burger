@@ -1,10 +1,7 @@
 import { SET_IS_AUTH_CHECKED, SET_USER, LOG_IN, LOG_OUT } from './actions';
 
 const initialState = {
-	user: {
-		name: '',
-		email: '',
-	},
+	user: null,
 	isAuthChecked: false,
 };
 
@@ -14,7 +11,7 @@ export type User = {
 };
 
 export type AuthState = {
-	user: User;
+	user: User | null;
 	isAuthChecked: boolean;
 };
 export const authReducer = (
@@ -31,7 +28,7 @@ export const authReducer = (
 		case LOG_OUT:
 			return {
 				...state,
-				user: initialState.user,
+				user: null,
 				isAuthChecked: true,
 			};
 		case SET_USER:

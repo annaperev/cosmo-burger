@@ -13,8 +13,8 @@ export const Profile: FC = () => {
 	const user = useAppSelector(getUser);
 	const dispatch = useAppDispatch();
 
-	const [nameValue, setNameValue] = React.useState(user.name);
-	const [emailValue, setEmailValue] = React.useState(user.email);
+	const [nameValue, setNameValue] = React.useState(user ? user.name : '');
+	const [emailValue, setEmailValue] = React.useState(user ? user.email : '');
 	const [passwordValue, setPassportValue] = React.useState('blablabla');
 
 	const handleSaveClick = () => {
