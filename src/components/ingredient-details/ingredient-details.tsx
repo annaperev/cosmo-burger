@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './ingredient-details.module.css';
-import { useAppSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getIngredients } from '../../services/selectors';
 import { useParams } from 'react-router-dom';
+import { fetchIngredients } from '../../services/ingredients/thunk-get-ingredients';
 
 export const IngredientDetails = () => {
-	// const { ingredient } = useAppSelector(getIngredient);
+	const dispatch = useAppDispatch();
+	useEffect(() => {
+		dispatch(fetchIngredients());
+	}, []);
+
 	const ingredientId = useParams<'ingredientId'>();
 
 	const { ingredients } = useAppSelector(getIngredients);
@@ -17,8 +22,9 @@ export const IngredientDetails = () => {
 	return (
 		ingredient && (
 			<div className={styles.container}>
+				<p className='text text_type_main-large'>Детали ингридиента</p>
 				<img
-					className={`${styles.image} mb-4`}
+					className={`${styles.image}`}
 					src={ingredient.image}
 					alt={ingredient.name}
 				/>

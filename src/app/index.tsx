@@ -42,7 +42,6 @@ export const App = () => {
 					path='/ingredients/:ingredientId'
 					element={<IngredientDetails />}
 				/>
-				<Route path='*' element={<NotFound404 />} />
 				<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
 				<Route
 					path='/register'
@@ -57,13 +56,16 @@ export const App = () => {
 					element={<OnlyUnAuth component={<ResetPassword />} />}
 				/>
 				<Route path='/orders' element={<OnlyAuth component={<Orders />} />} />
-				<Route path='/profile' element={<ProfileLayout />}>
+				<Route
+					path='/profile'
+					element={<OnlyAuth component={<ProfileLayout />} />}>
 					<Route
 						path='profile'
 						element={<OnlyAuth component={<Profile />} />}
 					/>
 					<Route path='orders' element={<OnlyAuth component={<Orders />} />} />
 				</Route>
+				<Route path='*' element={<NotFound404 />} />
 			</Routes>
 
 			{background && (
@@ -71,7 +73,7 @@ export const App = () => {
 					<Route
 						path='/ingredients/:ingredientId'
 						element={
-							<Modal header='Детали ингридиента' onClose={handleModalClose}>
+							<Modal onClose={handleModalClose}>
 								<IngredientDetails />
 							</Modal>
 						}

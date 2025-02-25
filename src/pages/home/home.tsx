@@ -22,12 +22,16 @@ export const Home = () => {
 				<BurgerConstructor />
 			</main>
 			{isPosting && (
-				<Modal header='Оформляем заказ...' onClose={() => {}}>
+				<Modal
+					onClose={() => {
+						return;
+					}}>
+					<p className='text text_type_main-large'>Оформляем заказ... </p>
 					<Loader size={'large'} inverse={true} />
 				</Modal>
 			)}
 			{orderNumber && (
-				<Modal header='' onClose={() => dispatch({ type: EMPTY_ORDER_NUMBER })}>
+				<Modal onClose={() => dispatch({ type: EMPTY_ORDER_NUMBER })}>
 					<OrderDetails orderNumber={orderNumber} />
 				</Modal>
 			)}

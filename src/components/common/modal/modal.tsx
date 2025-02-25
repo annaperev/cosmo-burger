@@ -7,10 +7,9 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 const modalRoot = document.getElementById('react-modals');
 
 export const Modal: FC<{
-	header: string;
 	onClose: () => void;
 	children: React.ReactNode;
-}> = ({ children, header, onClose }) => {
+}> = ({ children, onClose }) => {
 	useEffect(() => {
 		const handleEscKey = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
@@ -32,14 +31,11 @@ export const Modal: FC<{
 		<div className={styles.wrapper}>
 			<ModalOverlay onClose={onClose} />
 			<div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-				<div className={styles.header}>
-					<p className='text text_type_main-large'>{header}</p>
-					<button
-						className={`${styles.close} 'text text_type_main-large'`}
-						onClick={onClose}>
-						<CloseIcon type='primary' />
-					</button>
-				</div>
+				<button
+					className={`${styles.close} 'text text_type_main-large'`}
+					onClick={onClose}>
+					<CloseIcon type='primary' />
+				</button>
 				<div>{children}</div>
 			</div>
 		</div>,
