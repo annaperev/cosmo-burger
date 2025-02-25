@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styles from './profile.module.css';
 import {
 	Button,
@@ -10,49 +10,71 @@ import { getUser } from '../../services/selectors';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export const Profile: FC = () => {
-	const user = useAppSelector(getUser);
+	const user = useAppSelector(getUser) || {
+		name: '',
+		email: '',
+	};
 	const dispatch = useAppDispatch();
 
-	const [nameValue, setNameValue] = React.useState(user ? user.name : '');
-	const [emailValue, setEmailValue] = React.useState(user ? user.email : '');
-	const [passwordValue, setPassportValue] = React.useState('');
+	const [formData, setFormData] = useState({ ...user });
+	const [isEdited, setIsEdited] = useState(false);
 
-	const handleSaveClick = () => {
-		dispatch(updateUserProfile(nameValue, emailValue));
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		setIsEdited(true);
+	};
+
+	const handleCancel = () => {
+		setFormData(user);
+		setIsEdited(false);
+	};
+	const handleSave = () => {
+		dispatch(updateUserProfile(formData.name, formData.email));
+		setIsEdited(false);
 	};
 
 	return (
 		<div className={styles.profile}>
 			<Input
+				name='name'
 				placeholder={'Имя'}
-				value={nameValue}
-				onChange={(e) => setNameValue(e.target.value)}
+				value={formData.name}
+				onChange={handleChange}
 				icon={'EditIcon'}
 			/>
 			<Input
+				name='email'
 				placeholder={'Логин'}
-				value={emailValue}
-				onChange={(e) => setEmailValue(e.target.value)}
+				value={formData.email}
+				onChange={handleChange}
 				icon={'EditIcon'}
 			/>
 			<PasswordInput
+				name='password'
 				placeholder={'Пароль'}
-				value={passwordValue}
-				onChange={(e) => setPassportValue(e.target.value)}
+				value={formData.password || ''}
+				onChange={handleChange}
 				icon={'EditIcon'}
 			/>
-			<div className={styles.profile_buttons}>
-				<Button htmlType='button' type='secondary' size='large'>
-					Отмена
-				</Button>
-				<Button
-					htmlType='button'
-					type='primary'
-					size='large'
-					onClick={handleSaveClick}>
-					Сохранить
-				</Button>
-			</div>
+			{isEdited && (
+				<div className={styles.profile_buttons}>
+					<Button
+						htmlType='button'
+						type='secondary'
+						size='large'
+						onClick={handleCancel}>
+						Отмена
+					</Button>
+					<Button
+						htmlType='button'
+						type='primary'
+						size='large'
+						onClick={handleSave}>
+						Сохранить
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 };
