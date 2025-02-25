@@ -7,15 +7,16 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { request } from '../../../utils/request-helper';
+import { useNavigate } from 'react-router-dom';
 
 export const ResetPassword = () => {
 	const [passwordValue, setPassportValue] = React.useState('');
+	const navigate = useNavigate();
 	const onChange = (e: any) => {
 		setPassportValue(e.target.value);
 	};
 
 	const [tokenValue, setTokenValue] = React.useState('');
-	const inputRef = React.useRef(null);
 
 	const handleClick = () => {
 		const data = request('password-reset/reset', {
@@ -25,7 +26,10 @@ export const ResetPassword = () => {
 			},
 			body: JSON.stringify({ password: passwordValue, token: tokenValue }),
 		})
-			.then((res) => console.log(res))
+			.then((res) => {
+				console.log(res);
+				navigate('/login', {});
+			})
 			.catch((error) => console.log(error));
 		console.log(data);
 	};
@@ -46,7 +50,6 @@ export const ResetPassword = () => {
 				placeholder={'Введите код из письма'}
 				onChange={(e) => setTokenValue(e.target.value)}
 				value={tokenValue}
-				ref={inputRef}
 				extraClass={'mt-6'}
 			/>
 			<Button

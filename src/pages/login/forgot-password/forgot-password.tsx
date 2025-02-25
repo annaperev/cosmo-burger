@@ -6,10 +6,11 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { request } from '../../../utils/request-helper';
+import { useNavigate } from 'react-router-dom';
 
 export const ForgotPassword = () => {
 	const [emailValue, setEmailValue] = React.useState('');
-	const inputRef = React.useRef(null);
+	const navigate = useNavigate();
 	const handleClick = () => {
 		const data = request('password-reset', {
 			method: 'POST',
@@ -18,7 +19,10 @@ export const ForgotPassword = () => {
 			},
 			body: JSON.stringify({ email: emailValue }),
 		})
-			.then((res) => console.log(res))
+			.then((res) => {
+				console.log(res);
+				navigate('/reset-password', {});
+			})
 			.catch((error) => console.log(error));
 		console.log(data);
 	};
@@ -33,7 +37,6 @@ export const ForgotPassword = () => {
 				placeholder={'Укажите e-mail'}
 				onChange={(e) => setEmailValue(e.target.value)}
 				value={emailValue}
-				ref={inputRef}
 				extraClass={'mt-6'}
 			/>
 			<Button
