@@ -21,6 +21,7 @@ export const postOrder =
 				},
 				body: JSON.stringify({ ingredients: orderIngredientsIds }),
 			});
+			await new Promise((resolve) => setTimeout(resolve, 5000));
 			dispatch({
 				type: POST_ORDER_SUCCESS,
 				payload: data.order.number,

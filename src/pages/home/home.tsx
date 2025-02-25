@@ -8,9 +8,10 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { OrderDetails } from '../../components/order-details/order-details';
 import { EMPTY_ORDER_NUMBER } from '../../services/order/actions';
 import { getOrderNumber } from '../../services/selectors';
+import { Loader } from '../../components/common/loader/loader';
 
 export const Home = () => {
-	const { orderNumber } = useAppSelector(getOrderNumber);
+	const { orderNumber, isPosting } = useAppSelector(getOrderNumber);
 
 	const dispatch = useAppDispatch();
 
@@ -20,6 +21,11 @@ export const Home = () => {
 				<BurgerIngredients />
 				<BurgerConstructor />
 			</main>
+			{isPosting && (
+				<Modal header='Оформляем заказ...' onClose={() => {}}>
+					<Loader size={'large'} inverse={true} />
+				</Modal>
+			)}
 			{orderNumber && (
 				<Modal header='' onClose={() => dispatch({ type: EMPTY_ORDER_NUMBER })}>
 					<OrderDetails orderNumber={orderNumber} />

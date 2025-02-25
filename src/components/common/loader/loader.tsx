@@ -4,7 +4,7 @@ import { LoaderSvg } from './loader.svg';
 const loaderSizes = {
 	small: 16,
 	medium: 24,
-	large: 40,
+	large: 80,
 };
 export const Loader = ({
 	size,
@@ -19,6 +19,7 @@ export const Loader = ({
 	type WrapperStyleKey = `wrapper_${LoaderSize}`; // 'wrapper_small' | 'wrapper_medium' | 'wrapper_large'
 
 	const wrapperStyleKey: WrapperStyleKey = `wrapper_${size}`;
+	console.log('wrapperStyleKey', wrapperStyleKey);
 	return (
 		<div className={style[wrapperStyleKey]}>
 			<LoaderSvg color={loaderColor} size={loaderSizes[size]} />
