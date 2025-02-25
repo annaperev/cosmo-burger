@@ -19,11 +19,15 @@ import { DraggableIngredient } from './constructor-element/constructor-element';
 import {
 	calcTotalSum,
 	getConstructorIngredients,
+	getUser,
 } from '../../services/selectors';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor = () => {
-	//global state
 	const { bun, ingredients } = useAppSelector(getConstructorIngredients);
+	const user = useAppSelector(getUser);
+	const location = useLocation();
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const handleRemove = (ingredient: Ingredient) => {
 		dispatch(removeConstructorIngredient(ingredient));
@@ -81,6 +85,14 @@ export const BurgerConstructor = () => {
 		);
 	};
 
+	const handleCreateOrder = () => {
+		if (!user) {
+			navigate('/login', { state: { from: location } });
+			return;
+		}
+		bun && dispatch(postOrder({ bun: bun, ingredients: ingredients }));
+	};
+
 	return (
 		<div
 			ref={drop}
@@ -130,9 +142,7 @@ export const BurgerConstructor = () => {
 					htmlType='submit'
 					type='primary'
 					size='large'
-					onClick={() =>
-						bun && dispatch(postOrder({ bun: bun, ingredients: ingredients }))
-					}
+					onClick={handleCreateOrder}
 					disabled={!bun}>
 					Оформить заказ
 				</Button>

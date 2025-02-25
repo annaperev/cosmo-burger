@@ -21,3 +21,7 @@
 .profile_buttons{
 	align-self: end;
 }
+
+.exit_button:hover{
+	color: #646cff;
+}
