@@ -10,7 +10,6 @@ const Protected = ({
 	onlyAuth?: boolean;
 	component: JSX.Element;
 }) => {
-	debugger;
 	const isAuthChecked = useAppSelector(getIsAuthChecked);
 	const user = useAppSelector(getUser);
 	const location = useLocation();

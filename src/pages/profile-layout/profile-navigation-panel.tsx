@@ -26,7 +26,16 @@ export const ProfileNavigationPanel: FC = () => {
 				}>
 				История заказов
 			</NavLink>
-			<span className='text_color_inactive' onClick={handleLogoutClick}>
+			<span
+				className={`${styles.exit_button} text text_type_main-medium text_color_inactive`}
+				onClick={handleLogoutClick}
+				role='button'
+				tabIndex={0}
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') {
+						handleLogoutClick();
+					}
+				}}>
 				Выход
 			</span>
 			<span className='text text_type_main-small text_color_inactive mt-6'>
