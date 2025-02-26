@@ -7,9 +7,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { request } from '../../../utils/request-helper';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../../utils/hooks';
 
 export const ForgotPassword = () => {
-	const [emailValue, setEmailValue] = React.useState('');
+	const [values, onChange] = useForm({ email: '' });
 	const navigate = useNavigate();
 	const handleClick = () => {
 		const data = request('password-reset', {
@@ -17,7 +18,7 @@ export const ForgotPassword = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ email: emailValue }),
+			body: JSON.stringify({ email: values.email }),
 		})
 			.then((res) => {
 				console.log(res);
@@ -33,10 +34,11 @@ export const ForgotPassword = () => {
 				Восстановление пароля
 			</span>
 			<Input
-				type={'text'}
+				name='email'
+				autoComplete='email'
 				placeholder={'Укажите e-mail'}
-				onChange={(e) => setEmailValue(e.target.value)}
-				value={emailValue}
+				onChange={onChange}
+				value={values.email}
 				extraClass={'mt-6'}
 			/>
 			<Button

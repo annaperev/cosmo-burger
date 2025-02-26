@@ -8,39 +8,40 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../../services/store';
 import { registerUser } from '../../../services/auth/thunk-auth';
+import { useForm } from '../../../utils/hooks';
 
 export const Register = () => {
-	const [passwordValue, setPassportValue] = React.useState('');
-	const [nameValue, setNameValue] = React.useState('');
-	const [emailValue, setEmailValue] = React.useState('');
-
+	const [values, onChange] = useForm({ email: '', name: '', password: '' });
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-		dispatch(registerUser(emailValue, passwordValue, nameValue));
+		dispatch(registerUser(values.email, values.password, values.name));
 	};
 
 	return (
 		<div className={styles.container}>
 			<span className={'text text_type_main-medium'}>Регистрация</span>
 			<Input
-				type={'text'}
+				name='name'
+				autoComplete='name'
 				placeholder={'Имя'}
-				onChange={(e) => setNameValue(e.target.value)}
-				value={nameValue}
+				onChange={onChange}
+				value={values.name}
 				extraClass={'mt-6'}
 			/>
 			<Input
-				type={'text'}
+				name='email'
+				autoComplete='email'
 				placeholder={'E-mail'}
-				onChange={(e) => setEmailValue(e.target.value)}
-				value={emailValue}
+				onChange={onChange}
+				value={values.email}
 				extraClass={'mt-6'}
 			/>
 			<PasswordInput
-				onChange={(e) => setPassportValue(e.target.value)}
-				value={passwordValue}
-				name={'password'}
+				name='password'
+				autoComplete={'new-password'}
+				onChange={onChange}
+				value={values.password}
 				extraClass={'mt-6'}
 			/>
 			<Button

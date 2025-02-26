@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import {
 	Button,
@@ -8,25 +8,25 @@ import {
 import { updateUserProfile } from '../../services/auth/thunk-auth';
 import { getUser } from '../../services/selectors';
 import { useAppDispatch, useAppSelector } from '../../services/store';
+import { useForm } from '../../utils/hooks';
 
 export const Profile: FC = () => {
-	const user = useAppSelector(getUser) || {
-		name: '',
-		email: '',
-	};
+	const user = useAppSelector(getUser);
 	const dispatch = useAppDispatch();
 
-	const [formData, setFormData] = useState({ ...user });
 	const [isEdited, setIsEdited] = useState(false);
+	const [formData, handleChange, resetForm] = useForm({
+		name: user?.name || '',
+		email: user?.email || '',
+		password: '',
+	});
 
-	const handleChange = (e: any) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
-		setIsEdited(true);
-	};
+	useEffect(() => {
+		setIsEdited(formData.name !== user?.name || formData.email !== user?.email);
+	}, [formData, user]);
 
 	const handleCancel = () => {
-		setFormData(user);
+		resetForm();
 		setIsEdited(false);
 	};
 	const handleSave = () => {
@@ -38,6 +38,7 @@ export const Profile: FC = () => {
 		<div className={styles.profile}>
 			<Input
 				name='name'
+				autoComplete='name'
 				placeholder={'Имя'}
 				value={formData.name}
 				onChange={handleChange}
@@ -45,6 +46,7 @@ export const Profile: FC = () => {
 			/>
 			<Input
 				name='email'
+				autoComplete='email'
 				placeholder={'Логин'}
 				value={formData.email}
 				onChange={handleChange}
@@ -53,7 +55,7 @@ export const Profile: FC = () => {
 			<PasswordInput
 				name='password'
 				placeholder={'Пароль'}
-				value={formData.password || ''}
+				value={formData.password}
 				onChange={handleChange}
 				icon={'EditIcon'}
 			/>

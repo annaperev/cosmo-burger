@@ -8,15 +8,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { request } from '../../../utils/request-helper';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../../utils/hooks';
 
 export const ResetPassword = () => {
-	const [passwordValue, setPassportValue] = React.useState('');
+	const [values, onChange] = useForm({ password: '', token: '' });
 	const navigate = useNavigate();
-	const onChange = (e: any) => {
-		setPassportValue(e.target.value);
-	};
-
-	const [tokenValue, setTokenValue] = React.useState('');
 
 	const handleClick = () => {
 		const data = request('password-reset/reset', {
@@ -24,7 +20,7 @@ export const ResetPassword = () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ password: passwordValue, token: tokenValue }),
+			body: JSON.stringify({ password: values.password, token: values.token }),
 		})
 			.then((res) => {
 				console.log(res);
@@ -40,16 +36,19 @@ export const ResetPassword = () => {
 				Восстановление пароля
 			</span>
 			<PasswordInput
+				name='password'
+				autoComplete='new-password'
 				onChange={onChange}
-				value={passwordValue}
+				value={values.password}
 				placeholder={'Введите новый пароль'}
 				extraClass={'mt-6'}
 			/>
 			<Input
-				type={'text'}
+				name='token'
+				autoComplete='one-time-code'
 				placeholder={'Введите код из письма'}
-				onChange={(e) => setTokenValue(e.target.value)}
-				value={tokenValue}
+				onChange={onChange}
+				value={values.token}
 				extraClass={'mt-6'}
 			/>
 			<Button

@@ -8,30 +8,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { login } from '../../services/auth/thunk-auth';
+import { useForm } from '../../utils/hooks';
 
 export const Login = () => {
-	const [passwordValue, setPassportValue] = React.useState('');
-	const [emailValue, setEmailValue] = React.useState('');
-
+	const [values, onChange] = useForm({ email: '', password: '' });
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-		dispatch(login(emailValue, passwordValue));
+		dispatch(login(values.email, values.password));
 	};
 
 	return (
 		<div className={styles.container}>
 			<span className={'text text_type_main-medium'}>Вход</span>
 			<Input
-				type={'text'}
+				name='email'
+				autoComplete='email'
 				placeholder={'E-mail'}
-				onChange={(e) => setEmailValue(e.target.value)}
-				value={emailValue}
+				onChange={onChange}
+				value={values.email}
 				extraClass={'mt-6'}
 			/>
 			<PasswordInput
-				onChange={(e) => setPassportValue(e.target.value)}
-				value={passwordValue}
+				onChange={onChange}
+				value={values.password}
 				name={'password'}
 				extraClass={'mt-6'}
 			/>
