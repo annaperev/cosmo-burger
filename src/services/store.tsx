@@ -6,12 +6,14 @@ import { orderReducer } from './order/reducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { thunk } from 'redux-thunk';
 import { ingredientReducer } from './ingredient/reducer';
+import { authReducer } from './auth/reducers';
 
 export const reducer = combineReducers({
 	burgerConstructor: burgerConstructorReducer,
 	ingredient: ingredientReducer,
 	ingredients: ingredientsReducer,
 	order: orderReducer,
+	auth: authReducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;

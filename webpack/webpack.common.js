@@ -9,6 +9,7 @@ const production = process.env.NODE_ENV === 'production';
 module.exports = {
 	entry: path.resolve(__dirname, '..', './src/index.tsx'), //точка входа в наше приложение содержит абсолютный путь к index.ts
 	output: {
+		publicPath: `/`, //путь куда будут смотреть все файлы
 		path: path.resolve(__dirname, '..', './dist'), //путь куда будет собираться наш проект
 		filename: production
 			? 'static/scripts/[name].[contenthash].js'
@@ -79,6 +80,7 @@ module.exports = {
 	plugins: [
 		new HTMLWebpackPlugins({
 			template: path.resolve(__dirname, '..', './public/index.html'),
+			inject: 'head',
 		}),
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({

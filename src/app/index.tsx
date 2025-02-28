@@ -1,44 +1,84 @@
-import styles from './app.module.scss';
-
-import { AppHeader } from '../components/app-header/app-header';
-import React from 'react';
-import { BurgerIngredients } from '../components/burger-ingredients/burger-ingredients';
-import { BurgerConstructor } from '../components/burger-constructor/burger-constructor';
-import { Modal } from '../components/common/modal/modal';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Home } from '../pages/home/home';
 import { IngredientDetails } from '../components/ingredient-details/ingredient-details';
-import { useAppDispatch, useAppSelector } from '../services/store';
-import { CLOSE_MODAL_INGREDIENT } from '../services/ingredient/actions';
-import { OrderDetails } from '../components/order-details/order-details';
-import { EMPTY_ORDER_NUMBER } from '../services/order/actions';
-import { getIngredient, getOrderNumber } from '../services/selectors';
+import { Modal } from '../components/common/modal/modal';
+import styles from '../pages/home/home.module.css';
+import { AppHeader } from '../components/app-header/app-header';
+import { NotFound404 } from '../pages/not-found-404/not-found-404';
+import { Login } from '../pages/login/login';
+import { Register } from '../pages/login/register/register';
+import { ForgotPassword } from '../pages/login/forgot-password/forgot-password';
+import { ResetPassword } from '../pages/login/reset-password/reset-password';
+import { Profile } from '../pages/profile-layout/profile';
+import { ProfileLayout } from '../pages/profile-layout/profile-layout';
+import { Orders } from '../pages/profile-layout/orders';
+import { useAppDispatch } from '../services/store';
+import { checkUserAuth } from '../services/auth/thunk-auth';
+import { OnlyAuth, OnlyUnAuth } from './protected-route.';
 
 export const App = () => {
-	const { ingredient } = useAppSelector(getIngredient);
-	const { orderNumber } = useAppSelector(getOrderNumber);
-
 	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(checkUserAuth());
+	}, []);
+
+	const location = useLocation();
+	const navigate = useNavigate();
+	const background = location.state && location.state.background;
+
+	const handleModalClose = () => {
+		// Возвращаемся к предыдущему пути при закрытии модалки
+		navigate(-1);
+	};
 
 	return (
 		<div className={styles.container}>
 			<AppHeader className={styles.header} />
-			<main className={styles.content}>
-				<>
-					<BurgerIngredients />
+			<Routes location={background || location}>
+				<Route path='/' element={<Home />} />
+				<Route
+					path='/ingredients/:ingredientId'
+					element={<IngredientDetails />}
+				/>
+				<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
+				<Route
+					path='/register'
+					element={<OnlyUnAuth component={<Register />} />}
+				/>
+				<Route
+					path='/forgot-password'
+					element={<OnlyUnAuth component={<ForgotPassword />} />}
+				/>
+				<Route
+					path='/reset-password'
+					element={<OnlyUnAuth component={<ResetPassword />} />}
+				/>
+				<Route path='/orders' element={<OnlyAuth component={<Orders />} />} />
+				<Route
+					path='/profile'
+					element={<OnlyAuth component={<ProfileLayout />} />}>
+					<Route
+						path='profile'
+						element={<OnlyAuth component={<Profile />} />}
+					/>
+					<Route path='orders' element={<OnlyAuth component={<Orders />} />} />
+				</Route>
+				<Route path='*' element={<NotFound404 />} />
+			</Routes>
 
-					<BurgerConstructor />
-				</>
-			</main>
-			{ingredient && (
-				<Modal
-					header='Детали ингридиента'
-					onClose={() => dispatch({ type: CLOSE_MODAL_INGREDIENT })}>
-					<IngredientDetails ingredient={ingredient} />
-				</Modal>
-			)}
-			{orderNumber && (
-				<Modal header='' onClose={() => dispatch({ type: EMPTY_ORDER_NUMBER })}>
-					<OrderDetails orderNumber={orderNumber} />
-				</Modal>
+			{background && (
+				<Routes>
+					<Route
+						path='/ingredients/:ingredientId'
+						element={
+							<Modal onClose={handleModalClose}>
+								<IngredientDetails />
+							</Modal>
+						}
+					/>
+				</Routes>
 			)}
 		</div>
 	);

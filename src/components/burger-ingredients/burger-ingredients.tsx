@@ -18,8 +18,6 @@ export const BurgerIngredients = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		dispatch(fetchIngredients());
 	}, []);
 

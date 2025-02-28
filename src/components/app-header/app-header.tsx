@@ -7,29 +7,53 @@ import {
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 export const AppHeader = ({ className }: { className: string }) => {
 	return (
 		<header className={`${styles.navigation_panel} ${className}`}>
 			<nav className={`${styles.left}`}>
-				<div className={styles.icon_link}>
-					<BurgerIcon type='primary' />
-					<p>Конструктор</p>
-				</div>
-				<div className={styles.icon_link}>
-					<ListIcon type='secondary' />
-					<p className='text text_type_main-default text_color_inactive'>
-						Лента заказов
-					</p>
-				</div>
+				<NavLink to={'/'}>
+					{({ isActive }) => (
+						<div className={styles.icon_link}>
+							<BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+							<p
+								className={`text text_type_main-default ${
+									isActive ? 'text_color_primary' : 'text_color_inactive'
+								}`}>
+								Конструктор
+							</p>
+						</div>
+					)}
+				</NavLink>
+				<NavLink to={'/orders'}>
+					{({ isActive }) => (
+						<div className={styles.icon_link}>
+							<ListIcon type={isActive ? 'primary' : 'secondary'} />
+							<p
+								className={`text text_type_main-default ${
+									isActive ? 'text_color_primary' : 'text_color_inactive'
+								}`}>
+								Лента заказов
+							</p>
+						</div>
+					)}
+				</NavLink>
 			</nav>
 			<Logo className={styles.center} />
-			<span className={`${styles.right} ${styles.icon_link}`}>
-				<ProfileIcon type='secondary' />
-				<p className='text text_type_main-default text_color_inactive'>
-					Личный кабинет
-				</p>
-			</span>
+			<NavLink to={'/profile'}>
+				{({ isActive }) => (
+					<span className={`${styles.right} ${styles.icon_link}`}>
+						<ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+						<p
+							className={`text text_type_main-default ${
+								isActive ? 'text_color_primary' : 'text_color_inactive'
+							}`}>
+							Личный кабинет
+						</p>
+					</span>
+				)}
+			</NavLink>
 		</header>
 	);
 };

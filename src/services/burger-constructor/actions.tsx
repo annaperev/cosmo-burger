@@ -5,6 +5,7 @@ export const ADD_BUN = 'ADD_BUN';
 export const ADD_CONSTRUCTOR_INGREDIENT = 'ADD_CONSTRUCTOR_INGREDIENT';
 export const REMOVE_CONSTRUCTOR_INGREDIENT = 'REMOVE_CONSTRUCTOR_INGREDIENT';
 export const REORDER_INGREDIENTS = 'REORDER_INGREDIENTS;';
+export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
 export const addBun = (ingredient: Ingredient) => ({
 	type: ADD_BUN,

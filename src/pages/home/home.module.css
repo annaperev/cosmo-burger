@@ -1,0 +1,19 @@
+.container {
+	display: grid;
+	grid-template-rows: 88px calc(100vh - 88px);
+	grid-template-columns: 1fr 600px 40px 600px 1fr;
+	overflow: hidden;
+}
+
+.container > * {
+	grid-column: 2 / 5;
+}
+
+.header { grid-row: 1 / 2 }
+
+.content {
+	display: flex;
+	grid-row: 2 / 3;
+	flex-direction: row;
+	height: calc(100vh - 88px);
+}

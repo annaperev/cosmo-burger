@@ -48,6 +48,12 @@ export const burgerConstructorReducer = (
 				ingredients: updatedIngredients,
 			};
 		}
+		case 'CLEAR_CONSTRUCTOR':
+			return {
+				...state,
+				bun: null,
+				ingredients: [],
+			};
 		default:
 			return state;
 	}

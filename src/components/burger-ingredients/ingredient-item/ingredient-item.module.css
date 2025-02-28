@@ -18,9 +18,10 @@
 .counter{
 	grid-area: 1 / 2 / 2 / 3;
 	align-self: start;
+	width: 24px;
+	padding: 2px;
+	color: white;
 	text-align: center;
 	background: blueviolet;
 	border-radius: 50%;
-	width: 24px;
-	padding: 2px;
 }
