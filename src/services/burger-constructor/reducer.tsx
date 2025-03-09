@@ -1,41 +1,49 @@
 import {
 	ADD_BUN,
 	ADD_CONSTRUCTOR_INGREDIENT,
+	CLEAR_CONSTRUCTOR,
 	REMOVE_CONSTRUCTOR_INGREDIENT,
 	REORDER_INGREDIENTS,
 } from './actions';
-import { Ingredient } from '../../types';
+import { emptyIngredient, Ingredient } from '../../types';
 
 const initialState = {
 	bun: null,
+	ingredient: emptyIngredient,
 	ingredients: [],
+	dragIndex: 0,
+	hoverIndex: 0,
 };
 
 export type BurgerConstructorState = {
 	bun: Ingredient | null;
+	ingredient: Ingredient;
 	ingredients: Ingredient[];
+	dragIndex: number;
+	hoverIndex: number;
 };
 
 export const burgerConstructorReducer = (
 	state = initialState,
-	action: { type: string; payload: any }
+	action: { type: string; payload: BurgerConstructorState }
 ): BurgerConstructorState => {
 	switch (action.type) {
 		case ADD_BUN:
 			return {
 				...state,
-				bun: action.payload,
+				bun: action.payload.bun,
 			};
 		case ADD_CONSTRUCTOR_INGREDIENT:
 			return {
 				...state,
-				ingredients: [...state.ingredients, action.payload],
+				ingredients: [...state.ingredients, action.payload.ingredient],
 			};
 		case REMOVE_CONSTRUCTOR_INGREDIENT:
 			return {
 				...state,
 				ingredients: state.ingredients.filter(
-					(ingredient: Ingredient) => ingredient.key !== action.payload.key
+					(ingredient: Ingredient) =>
+						ingredient.key !== action.payload.ingredient.key
 				),
 			};
 		case REORDER_INGREDIENTS: {
@@ -48,7 +56,7 @@ export const burgerConstructorReducer = (
 				ingredients: updatedIngredients,
 			};
 		}
-		case 'CLEAR_CONSTRUCTOR':
+		case CLEAR_CONSTRUCTOR:
 			return {
 				...state,
 				bun: null,

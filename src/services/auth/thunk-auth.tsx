@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, setIsAuthChecked, setUser } from './actions';
+import { LOG_OUT, logIn, setIsAuthChecked, setUser } from './actions';
 import { Dispatch } from 'redux';
 import { request, requestWithRefresh } from '../../utils/request-helper';
 import { AppDispatch } from '../store';
@@ -14,7 +14,7 @@ export const registerUser =
 				},
 				body: JSON.stringify({ email: email, password: password, name: name }),
 			});
-			dispatch({ type: LOG_IN, payload: data.user });
+			dispatch(logIn(data.user));
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
 		} catch (error: any) {
@@ -33,7 +33,8 @@ export const login =
 				},
 				body: JSON.stringify({ email: email, password: password }),
 			});
-			dispatch({ type: LOG_IN, payload: data });
+			debugger;
+			dispatch(logIn(data.user));
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
 			return data.user;
@@ -90,6 +91,7 @@ export const updateUserProfile =
 				},
 				body: JSON.stringify({ name: name, email: email }),
 			});
+			console.log(data.user);
 			dispatch(setUser(data.user));
 		} catch (error: any) {
 			console.log(error);

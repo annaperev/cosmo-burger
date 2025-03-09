@@ -1,10 +1,9 @@
-import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './profile.module.css';
 import { useAppDispatch } from '../../services/store';
 import { logout } from '../../services/auth/thunk-auth';
 
-export const ProfileNavigationPanel: FC = () => {
+export const ProfileNavigationPanel = () => {
 	const dispatch = useAppDispatch();
 	const handleLogoutClick = () => {
 		dispatch(logout());

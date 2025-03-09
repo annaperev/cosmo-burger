@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import {
 	Button,
@@ -10,7 +10,7 @@ import { getUser } from '../../services/selectors';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useForm } from '../../utils/hooks';
 
-export const Profile: FC = () => {
+export const Profile = () => {
 	const user = useAppSelector(getUser);
 	const dispatch = useAppDispatch();
 

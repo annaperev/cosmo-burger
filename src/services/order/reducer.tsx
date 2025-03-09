@@ -23,7 +23,7 @@ export const orderReducer = (
 	state = initialState,
 	action: {
 		type: string;
-		payload: any;
+		payload: OrderState;
 	}
 ): OrderState => {
 	switch (action.type) {
@@ -36,7 +36,7 @@ export const orderReducer = (
 		case POST_ORDER_SUCCESS:
 			return {
 				...state,
-				orderNumber: action.payload,
+				orderNumber: action.payload.orderNumber,
 				isFailed: false,
 				isPosting: false,
 			};

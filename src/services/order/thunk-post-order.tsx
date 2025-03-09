@@ -24,7 +24,7 @@ export const postOrder =
 			await new Promise((resolve) => setTimeout(resolve, 5000));
 			dispatch({
 				type: POST_ORDER_SUCCESS,
-				payload: data.order.number,
+				payload: { orderNumber: data.order.number },
 			});
 			dispatch({ type: CLEAR_CONSTRUCTOR });
 		} catch (error: any) {

@@ -11,8 +11,14 @@ export const fetchIngredients = () => async (dispatch: Dispatch) => {
 
 	try {
 		const data = await request('ingredients');
-		dispatch({ type: GET_INGREDIENTS_SUCCESS, payload: data.data });
+		dispatch({
+			type: GET_INGREDIENTS_SUCCESS,
+			payload: { ingredients: data.data },
+		});
 	} catch (error: any) {
-		dispatch({ type: GET_INGREDIENTS_FAILED, payload: error.message });
+		dispatch({
+			type: GET_INGREDIENTS_FAILED,
+			payload: { error: error.message },
+		});
 	}
 };

@@ -1,6 +1,7 @@
 .navigation_panel {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+	grid-row: 1 / 2;
     align-items: center;
     width: 100%;
 }

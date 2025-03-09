@@ -9,10 +9,15 @@ export const SET_IS_AUTH_CHECKED = 'SET_IS_AUTH_CHECKED';
 
 export const setIsAuthChecked = (isAuthChecked: boolean) => ({
 	type: SET_IS_AUTH_CHECKED,
-	payload: isAuthChecked,
+	payload: { isAuthChecked: isAuthChecked },
 });
 
 export const setUser = (user: User) => ({
 	type: SET_USER,
-	payload: user,
+	payload: { user: user },
+});
+
+export const logIn = (user: User) => ({
+	type: LOG_IN,
+	payload: { user: user },
 });

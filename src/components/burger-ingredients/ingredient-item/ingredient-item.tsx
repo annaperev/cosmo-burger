@@ -10,9 +10,11 @@ import { useDrag } from 'react-dnd';
 import { calcIngredientCounter } from '../../../services/selectors';
 import { useLocation, Link } from 'react-router-dom';
 
-export const IngredientItem: FC<{ ingredient: Ingredient }> = ({
-	ingredient,
-}) => {
+interface IngredientItemProps {
+	ingredient: Ingredient;
+}
+
+export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
 	const [{ isDragging }, drag] = useDrag(() => ({
 		type: 'ingredient',
 		item: ingredient,
