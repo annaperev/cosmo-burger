@@ -5,12 +5,17 @@ import {
 } from './actions';
 import { Dispatch } from 'redux';
 import { request } from '../../utils/request-helper';
+import { Ingredient } from '../../types';
 
+interface IngredientResponse {
+	success: boolean;
+	data: Ingredient[];
+}
 export const fetchIngredients = () => async (dispatch: Dispatch) => {
 	dispatch({ type: GET_INGREDIENTS });
 
 	try {
-		const data = await request('ingredients');
+		const data = await request<IngredientResponse>('ingredients');
 		dispatch({
 			type: GET_INGREDIENTS_SUCCESS,
 			payload: { ingredients: data.data },
