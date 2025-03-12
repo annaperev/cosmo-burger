@@ -1,5 +1,8 @@
 .container{
 	justify-items: center;
 	align-content: center;
-	gap: 24px
+
+	& form {
+		justify-items: center;
+	}
 }

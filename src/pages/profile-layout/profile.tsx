@@ -29,54 +29,53 @@ export const Profile = () => {
 		resetForm();
 		setIsEdited(false);
 	};
-	const handleSave = () => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		dispatch(updateUserProfile(formData.name, formData.email));
 		setIsEdited(false);
 	};
 
 	return (
-		<div className={styles.profile}>
-			<Input
-				name='name'
-				autoComplete='name'
-				placeholder={'Имя'}
-				value={formData.name}
-				onChange={handleChange}
-				icon={'EditIcon'}
-			/>
-			<Input
-				name='email'
-				autoComplete='email'
-				placeholder={'Логин'}
-				value={formData.email}
-				onChange={handleChange}
-				icon={'EditIcon'}
-			/>
-			<PasswordInput
-				name='password'
-				placeholder={'Пароль'}
-				value={formData.password}
-				onChange={handleChange}
-				icon={'EditIcon'}
-			/>
-			{isEdited && (
-				<div className={styles.profile_buttons}>
-					<Button
-						htmlType='button'
-						type='secondary'
-						size='large'
-						onClick={handleCancel}>
-						Отмена
-					</Button>
-					<Button
-						htmlType='button'
-						type='primary'
-						size='large'
-						onClick={handleSave}>
-						Сохранить
-					</Button>
-				</div>
-			)}
+		<div>
+			<form onSubmit={handleSubmit} className={styles.profile}>
+				<Input
+					name='name'
+					autoComplete='name'
+					placeholder={'Имя'}
+					value={formData.name}
+					onChange={handleChange}
+					icon={'EditIcon'}
+				/>
+				<Input
+					name='email'
+					autoComplete='email'
+					placeholder={'Логин'}
+					value={formData.email}
+					onChange={handleChange}
+					icon={'EditIcon'}
+				/>
+				<PasswordInput
+					name='password'
+					placeholder={'Пароль'}
+					value={formData.password}
+					onChange={handleChange}
+					icon={'EditIcon'}
+				/>
+				{isEdited && (
+					<div className={styles.profile_buttons}>
+						<Button
+							htmlType='reset'
+							type='secondary'
+							size='large'
+							onClick={handleCancel}>
+							Отмена
+						</Button>
+						<Button htmlType='submit' type='primary' size='large'>
+							Сохранить
+						</Button>
+					</div>
+				)}
+			</form>
 		</div>
 	);
 };

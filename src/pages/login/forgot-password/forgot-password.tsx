@@ -12,7 +12,8 @@ import { useForm } from '../../../utils/hooks';
 export const ForgotPassword = () => {
 	const [values, onChange] = useForm({ email: '' });
 	const navigate = useNavigate();
-	const handleClick = () => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		const data = request('password-reset', {
 			method: 'POST',
 			headers: {
@@ -33,22 +34,23 @@ export const ForgotPassword = () => {
 			<span className={'text text_type_main-medium'}>
 				Восстановление пароля
 			</span>
-			<Input
-				name='email'
-				autoComplete='email'
-				placeholder={'Укажите e-mail'}
-				onChange={onChange}
-				value={values.email}
-				extraClass={'mt-6'}
-			/>
-			<Button
-				htmlType='button'
-				type='primary'
-				size='medium'
-				extraClass='mt-6'
-				onClick={handleClick}>
-				Восстановить
-			</Button>
+			<form onSubmit={handleSubmit}>
+				<Input
+					name='email'
+					autoComplete='email'
+					placeholder={'Укажите e-mail'}
+					onChange={onChange}
+					value={values.email}
+					extraClass={'mt-6'}
+				/>
+				<Button
+					htmlType='submit'
+					type='primary'
+					size='medium'
+					extraClass='mt-6'>
+					Восстановить
+				</Button>
+			</form>
 			<div className={'mt-20'} style={{ justifyItems: 'center' }}>
 				<span
 					className={'text text_type_main-default text_color_inactive mt-20'}>
