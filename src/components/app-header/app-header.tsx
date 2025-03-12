@@ -6,7 +6,6 @@ import {
 	Logo,
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 export const AppHeader = () => {
@@ -56,8 +55,4 @@ export const AppHeader = () => {
 			</NavLink>
 		</header>
 	);
-};
-
-AppHeader.propTypes = {
-	className: PropTypes.string.isRequired,
 };

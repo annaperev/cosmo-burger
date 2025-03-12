@@ -41,7 +41,6 @@ export const login =
 				},
 				body: JSON.stringify({ email: email, password: password }),
 			});
-			debugger;
 			dispatch(logIn(data.user));
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
