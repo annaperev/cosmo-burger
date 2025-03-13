@@ -21,7 +21,7 @@ export type IngredientsState = {
 
 export const ingredientsReducer = (
 	state = initialState,
-	action: { type: string; payload: any }
+	action: { type: string; payload: IngredientsState }
 ): IngredientsState => {
 	switch (action.type) {
 		case GET_INGREDIENTS:
@@ -35,14 +35,14 @@ export const ingredientsReducer = (
 				...state,
 				isFailed: false,
 				isFetching: false,
-				ingredients: action.payload || [],
+				ingredients: action.payload.ingredients || [],
 			};
 		case GET_INGREDIENTS_FAILED:
 			return {
 				...state,
 				isFailed: true,
 				isFetching: false,
-				error: action.payload,
+				error: action.payload.error,
 			};
 		default:
 			return state;

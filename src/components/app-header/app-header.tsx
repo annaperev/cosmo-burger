@@ -6,12 +6,11 @@ import {
 	Logo,
 	ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-export const AppHeader = ({ className }: { className: string }) => {
+export const AppHeader = () => {
 	return (
-		<header className={`${styles.navigation_panel} ${className}`}>
+		<header className={styles.navigation_panel}>
 			<nav className={`${styles.left}`}>
 				<NavLink to={'/'}>
 					{({ isActive }) => (
@@ -56,8 +55,4 @@ export const AppHeader = ({ className }: { className: string }) => {
 			</NavLink>
 		</header>
 	);
-};
-
-AppHeader.propTypes = {
-	className: PropTypes.string.isRequired,
 };

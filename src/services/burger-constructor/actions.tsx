@@ -9,16 +9,16 @@ export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 
 export const addBun = (ingredient: Ingredient) => ({
 	type: ADD_BUN,
-	payload: ingredient,
+	payload: { bun: ingredient },
 });
 
 export const addConstructorIngredient = (ingredient: Ingredient) => ({
 	type: ADD_CONSTRUCTOR_INGREDIENT,
-	payload: { ...ingredient, key: uuidv4() },
+	payload: { ingredient: { ...ingredient, key: uuidv4() } },
 });
 export const removeConstructorIngredient = (ingredient: Ingredient) => ({
 	type: REMOVE_CONSTRUCTOR_INGREDIENT,
-	payload: ingredient,
+	payload: { ingredient: ingredient },
 });
 
 export const reorderIngredients = (
@@ -27,5 +27,9 @@ export const reorderIngredients = (
 	hoverIndex: number
 ) => ({
 	type: REORDER_INGREDIENTS,
-	payload: { ingredients, dragIndex, hoverIndex },
+	payload: {
+		ingredients: ingredients,
+		dragIndex: dragIndex,
+		hoverIndex: hoverIndex,
+	},
 });

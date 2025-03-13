@@ -35,7 +35,7 @@ export const App = () => {
 
 	return (
 		<div className={styles.container}>
-			<AppHeader className={styles.header} />
+			<AppHeader />
 			<Routes location={background || location}>
 				<Route path='/' element={<Home />} />
 				<Route

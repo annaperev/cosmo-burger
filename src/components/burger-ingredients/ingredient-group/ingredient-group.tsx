@@ -10,10 +10,16 @@ export const typeTranslations: Record<string, string> = {
 	main: 'Начинки',
 	sauce: 'Соусы',
 };
-export const IngredientGroup: FC<{
+
+interface IngredientGroupProps {
 	type: string;
 	ingredients: Ingredient[];
-}> = ({ type, ingredients }) => {
+}
+
+export const IngredientGroup: FC<IngredientGroupProps> = ({
+	type,
+	ingredients,
+}) => {
 	const translatedType = typeTranslations[type] || type;
 
 	return (

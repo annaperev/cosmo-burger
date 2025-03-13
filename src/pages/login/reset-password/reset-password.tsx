@@ -14,7 +14,8 @@ export const ResetPassword = () => {
 	const [values, onChange] = useForm({ password: '', token: '' });
 	const navigate = useNavigate();
 
-	const handleClick = () => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		const data = request('password-reset/reset', {
 			method: 'POST',
 			headers: {
@@ -35,30 +36,31 @@ export const ResetPassword = () => {
 			<span className={'text text_type_main-medium'}>
 				Восстановление пароля
 			</span>
-			<PasswordInput
-				name='password'
-				autoComplete='new-password'
-				onChange={onChange}
-				value={values.password}
-				placeholder={'Введите новый пароль'}
-				extraClass={'mt-6'}
-			/>
-			<Input
-				name='token'
-				autoComplete='one-time-code'
-				placeholder={'Введите код из письма'}
-				onChange={onChange}
-				value={values.token}
-				extraClass={'mt-6'}
-			/>
-			<Button
-				htmlType='button'
-				type='primary'
-				size='medium'
-				extraClass='mt-6'
-				onClick={handleClick}>
-				Сохранить
-			</Button>
+			<form onSubmit={handleSubmit}>
+				<PasswordInput
+					name='password'
+					autoComplete='new-password'
+					onChange={onChange}
+					value={values.password}
+					placeholder={'Введите новый пароль'}
+					extraClass={'mt-6'}
+				/>
+				<Input
+					name='token'
+					autoComplete='one-time-code'
+					placeholder={'Введите код из письма'}
+					onChange={onChange}
+					value={values.token}
+					extraClass={'mt-6'}
+				/>
+				<Button
+					htmlType='submit'
+					type='primary'
+					size='medium'
+					extraClass='mt-6'>
+					Сохранить
+				</Button>
+			</form>
 			<div className={'mt-20'} style={{ justifyItems: 'center' }}>
 				<span
 					className={'text text_type_main-default text_color_inactive mt-20'}>

@@ -1,20 +1,28 @@
-import { LOG_IN, LOG_OUT, setIsAuthChecked, setUser } from './actions';
+import { LOG_OUT, logIn, setIsAuthChecked, setUser } from './actions';
 import { Dispatch } from 'redux';
 import { request, requestWithRefresh } from '../../utils/request-helper';
 import { AppDispatch } from '../store';
+import { User } from './reducers';
+
+interface UserResponse {
+	success: boolean;
+	user: User;
+	accessToken: string;
+	refreshToken: string;
+}
 
 export const registerUser =
 	(email: string, password: string, name: string) =>
 	async (dispatch: Dispatch) => {
 		try {
-			const data = await request('auth/register', {
+			const data = await request<UserResponse>('auth/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ email: email, password: password, name: name }),
 			});
-			dispatch({ type: LOG_IN, payload: data.user });
+			dispatch(logIn(data.user));
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
 		} catch (error: any) {
@@ -26,14 +34,14 @@ export const registerUser =
 export const login =
 	(email: string, password: string) => async (dispatch: Dispatch) => {
 		try {
-			const data = await request('auth/login', {
+			const data = await request<UserResponse>('auth/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ email: email, password: password }),
 			});
-			dispatch({ type: LOG_IN, payload: data });
+			dispatch(logIn(data.user));
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
 			return data.user;
@@ -43,9 +51,13 @@ export const login =
 		}
 	};
 
+interface UserLogoutResponse {
+	success: boolean;
+	message: string;
+}
 export const logout = () => async (dispatch: Dispatch) => {
 	try {
-		await request('auth/logout', {
+		await request<UserLogoutResponse>('auth/logout', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -64,9 +76,9 @@ export const logout = () => async (dispatch: Dispatch) => {
 	}
 };
 
-export const getUserApi = async () => {
+export const getUserApi = async (): Promise<UserResponse> => {
 	try {
-		const data = await requestWithRefresh('auth/user', {
+		const data = await requestWithRefresh<UserResponse>('auth/user', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -76,13 +88,14 @@ export const getUserApi = async () => {
 		return data;
 	} catch (error: any) {
 		console.log(error);
+		throw error;
 	}
 };
 
 export const updateUserProfile =
 	(name: string, email: string) => async (dispatch: Dispatch) => {
 		try {
-			const data = await requestWithRefresh('auth/user', {
+			const data = await requestWithRefresh<UserResponse>('auth/user', {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
@@ -90,6 +103,7 @@ export const updateUserProfile =
 				},
 				body: JSON.stringify({ name: name, email: email }),
 			});
+			console.log(data.user);
 			dispatch(setUser(data.user));
 		} catch (error: any) {
 			console.log(error);

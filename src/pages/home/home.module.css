@@ -9,8 +9,6 @@
 	grid-column: 2 / 5;
 }
 
-.header { grid-row: 1 / 2 }
-
 .content {
 	display: flex;
 	grid-row: 2 / 3;
