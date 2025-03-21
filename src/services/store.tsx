@@ -4,9 +4,14 @@ import { ingredientsReducer } from './ingredients/reducer';
 import { burgerConstructorReducer } from './burger-constructor/reducer';
 import { orderReducer } from './order/reducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { thunk } from 'redux-thunk';
+import { thunk, ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { ingredientReducer } from './ingredient/reducer';
 import { authReducer } from './auth/reducers';
+import { TAuthAction } from './auth/actions';
+import { TBurgerConstructorActions } from './burger-constructor/actions';
+import { TIngredientActions } from './ingredient/actions';
+import { TIngredientsActions } from './ingredients/actions';
+import { TOrderActions } from './order/actions';
 
 export const reducer = combineReducers({
 	burgerConstructor: burgerConstructorReducer,
@@ -16,7 +21,7 @@ export const reducer = combineReducers({
 	auth: authReducer,
 });
 
-export type RootState = ReturnType<typeof reducer>;
+export type RootState = ReturnType<typeof store.getState>;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const store = createStore(
@@ -25,5 +30,19 @@ export const store = createStore(
 	composeWithDevTools(applyMiddleware(thunk))
 );
 
-export type AppDispatch = typeof store.dispatch;
+export type TApplicationActions =
+	| TAuthAction
+	| TBurgerConstructorActions
+	| TIngredientActions
+	| TIngredientsActions
+	| TOrderActions;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+	ReturnType,
+	RootState,
+	unknown,
+	TApplicationActions
+>;
+
+export type AppDispatch = ThunkDispatch<RootState, void, TApplicationActions>;
 export const useAppDispatch = () => useDispatch<AppDispatch>();

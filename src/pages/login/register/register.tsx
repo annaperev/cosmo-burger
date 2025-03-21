@@ -6,13 +6,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../services/store';
+import { AppDispatch, useAppDispatch } from '../../../services/store';
 import { registerUser } from '../../../services/auth/thunk-auth';
 import { useForm } from '../../../utils/hooks';
 
 export const Register = () => {
 	const [values, onChange] = useForm({ email: '', name: '', password: '' });
-	const dispatch = useAppDispatch();
+	const dispatch: AppDispatch = useAppDispatch();
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

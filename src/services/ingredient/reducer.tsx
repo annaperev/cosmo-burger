@@ -1,4 +1,8 @@
-import { CLOSE_MODAL_INGREDIENT, OPEN_MODAL_INGREDIENT } from './actions';
+import {
+	CLOSE_MODAL_INGREDIENT,
+	OPEN_MODAL_INGREDIENT,
+	TIngredientActions,
+} from './actions';
 import { Ingredient } from '../../types';
 
 const initialState = {
@@ -11,7 +15,7 @@ export type IngredientState = {
 
 export const ingredientReducer = (
 	state = initialState,
-	action: { type: string; payload: Ingredient }
+	action: TIngredientActions
 ): IngredientState => {
 	switch (action.type) {
 		case OPEN_MODAL_INGREDIENT:

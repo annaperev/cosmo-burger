@@ -7,12 +7,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateUserProfile } from '../../services/auth/thunk-auth';
 import { getUser } from '../../services/selectors';
-import { useAppDispatch, useAppSelector } from '../../services/store';
+import {
+	AppDispatch,
+	useAppDispatch,
+	useAppSelector,
+} from '../../services/store';
 import { useForm } from '../../utils/hooks';
 
 export const Profile = () => {
 	const user = useAppSelector(getUser);
-	const dispatch = useAppDispatch();
+	const dispatch: AppDispatch = useAppDispatch();
 
 	const [isEdited, setIsEdited] = useState(false);
 	const [formData, handleChange, resetForm] = useForm({

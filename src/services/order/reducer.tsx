@@ -3,6 +3,7 @@ import {
 	POST_ORDER,
 	POST_ORDER_SUCCESS,
 	EMPTY_ORDER_NUMBER,
+	TOrderActions,
 } from './actions';
 
 const initialState = {
@@ -21,10 +22,7 @@ export type OrderState = {
 
 export const orderReducer = (
 	state = initialState,
-	action: {
-		type: string;
-		payload: OrderState;
-	}
+	action: TOrderActions
 ): OrderState => {
 	switch (action.type) {
 		case POST_ORDER:

@@ -1,17 +1,17 @@
 import { POST_ORDER, POST_ORDER_SUCCESS, POST_ORDER_FAILED } from './actions';
-import { Dispatch } from 'redux';
 import { Ingredient } from '../../types';
 import { request } from '../../utils/request-helper';
 import { CLEAR_CONSTRUCTOR } from '../burger-constructor/actions';
+import { AppDispatch } from '../store';
 
 interface OrderResponse {
 	success: boolean;
-	order: { number: number };
+	order: { number: string };
 	name: string;
 }
 export const postOrder =
 	({ bun, ingredients }: { bun: Ingredient; ingredients: Ingredient[] }) =>
-	async (dispatch: Dispatch) => {
+	async (dispatch: AppDispatch) => {
 		const orderIngredientsIds = [
 			bun._id,
 			...ingredients.map((ing) => ing._id),

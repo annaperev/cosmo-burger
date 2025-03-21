@@ -13,12 +13,12 @@ import { ResetPassword } from '../pages/login/reset-password/reset-password';
 import { Profile } from '../pages/profile-layout/profile';
 import { ProfileLayout } from '../pages/profile-layout/profile-layout';
 import { Orders } from '../pages/profile-layout/orders';
-import { useAppDispatch } from '../services/store';
+import { AppDispatch, useAppDispatch } from '../services/store';
 import { checkUserAuth } from '../services/auth/thunk-auth';
 import { OnlyAuth, OnlyUnAuth } from './protected-route.';
 
 export const App = () => {
-	const dispatch = useAppDispatch();
+	const dispatch: AppDispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(checkUserAuth());

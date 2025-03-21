@@ -5,7 +5,11 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { useAppDispatch, useAppSelector } from '../../services/store';
+import {
+	AppDispatch,
+	useAppDispatch,
+	useAppSelector,
+} from '../../services/store';
 import {
 	addBun,
 	addConstructorIngredient,
@@ -28,7 +32,7 @@ export const BurgerConstructor = () => {
 	const user = useAppSelector(getUser);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const dispatch = useAppDispatch();
+	const dispatch: AppDispatch = useAppDispatch();
 	const handleRemove = (ingredient: Ingredient) => {
 		dispatch(removeConstructorIngredient(ingredient));
 	};

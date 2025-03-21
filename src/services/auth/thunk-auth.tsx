@@ -1,7 +1,12 @@
-import { LOG_OUT, logIn, setIsAuthChecked, setUser } from './actions';
-import { Dispatch } from 'redux';
+import {
+	LOG_OUT,
+	logIn,
+	setIsAuthChecked,
+	setUser,
+	TAuthAction,
+} from './actions';
 import { request, requestWithRefresh } from '../../utils/request-helper';
-import { AppDispatch } from '../store';
+import { AppThunk } from '../store';
 import { User } from './reducers';
 
 interface UserResponse {
@@ -12,10 +17,10 @@ interface UserResponse {
 }
 
 export const registerUser =
-	(email: string, password: string, name: string) =>
-	async (dispatch: Dispatch) => {
+	(email: string, password: string, name: string): AppThunk =>
+	async (dispatch) => {
 		try {
-			const data = await request<UserResponse>('auth/register', {
+			const data: UserResponse = await request<UserResponse>('auth/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -32,7 +37,8 @@ export const registerUser =
 	};
 
 export const login =
-	(email: string, password: string) => async (dispatch: Dispatch) => {
+	(email: string, password: string): AppThunk =>
+	async (dispatch) => {
 		try {
 			const data = await request<UserResponse>('auth/login', {
 				method: 'POST',
@@ -55,7 +61,7 @@ interface UserLogoutResponse {
 	success: boolean;
 	message: string;
 }
-export const logout = () => async (dispatch: Dispatch) => {
+export const logout = (): AppThunk => async (dispatch) => {
 	try {
 		await request<UserLogoutResponse>('auth/logout', {
 			method: 'POST',
@@ -76,7 +82,7 @@ export const logout = () => async (dispatch: Dispatch) => {
 	}
 };
 
-export const getUserApi = async (): Promise<UserResponse> => {
+const getUserApi = async (): Promise<UserResponse> => {
 	try {
 		const data = await requestWithRefresh<UserResponse>('auth/user', {
 			method: 'GET',
@@ -93,7 +99,8 @@ export const getUserApi = async (): Promise<UserResponse> => {
 };
 
 export const updateUserProfile =
-	(name: string, email: string) => async (dispatch: Dispatch) => {
+	(name: string, email: string): AppThunk =>
+	async (dispatch) => {
 		try {
 			const data = await requestWithRefresh<UserResponse>('auth/user', {
 				method: 'PATCH',
@@ -110,17 +117,17 @@ export const updateUserProfile =
 		}
 	};
 
-export const checkUserAuth = () => async (dispatch: AppDispatch) => {
+export const checkUserAuth = (): AppThunk => async (dispatch) => {
 	if (localStorage.getItem('accessToken')) {
 		getUserApi()
 			.then((res) => {
-				dispatch(setUser(res.user));
+				dispatch<TAuthAction>(setUser(res.user));
 			})
 			.catch(() => {
 				console.log('User is not authorized');
 			})
-			.finally(() => dispatch(setIsAuthChecked(true)));
+			.finally(() => dispatch<TAuthAction>(setIsAuthChecked(true)));
 	} else {
-		dispatch(setIsAuthChecked(true));
+		dispatch<TAuthAction>(setIsAuthChecked(true));
 	}
 };
