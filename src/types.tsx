@@ -33,3 +33,14 @@ export type IngredientApiResponse = {
 	success: boolean;
 	data: Ingredient[];
 };
+
+export type Order = {
+	_id: string;
+	ingredients: string[];
+	name: string;
+	sum: number;
+	createdAt: string;
+	status: string;
+	number: string;
+	updatedAt: string;
+};

@@ -39,7 +39,7 @@ export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
 			<div
 				ref={drag}
 				className={styles.container}
-				style={{ opacity: isDragging ? 0.5 : 1 }}
+				style={{ opacity: isDragging ? 0.5 : 1, color: 'white' }}
 				onClick={() =>
 					dispatch({ type: OPEN_MODAL_INGREDIENT, payload: ingredient })
 				}
