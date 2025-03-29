@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import styles from './feed.module.css';
-import { orders } from './feed';
 import {
 	CurrencyIcon,
 	FormattedDate,
@@ -10,15 +9,43 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getIngredients } from '../../services/selectors';
 import { Ingredient } from '../../types';
 import { fetchIngredients } from '../../services/ingredients/thunk-get-ingredients';
+import { getOrderByNumber } from '../../services/order/thunk-order';
 
-export const FeedOrderDetails = () => {
+export const OrderDetails = () => {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(fetchIngredients());
 	}, []);
 
-	const orderId = useParams<'id'>();
-	const order = orders.find((order) => order._id === orderId.id);
+	const { id: number } = useParams<'id'>();
+	const order = useAppSelector((state) => {
+		let order = state.feed.feed.orders.find(
+			(order) => order.number === Number(number)
+		);
+		if (order) {
+			return order;
+		}
+
+		order = state.feedProfile.feedProfile.orders.find(
+			(order) => order.number === Number(number)
+		);
+		if (order) {
+			return order;
+		}
+
+		order = state.order.order ? state.order.order : undefined;
+
+		if (order) {
+			return order;
+		}
+	});
+
+	useEffect(() => {
+		if (!order && !!number) {
+			dispatch(getOrderByNumber(number));
+		}
+	}, []);
+
 	const { ingredients } = useAppSelector(getIngredients);
 	if (!order) return null;
 	const orderIngredients: Ingredient[] = order.ingredients.map(
@@ -26,6 +53,7 @@ export const FeedOrderDetails = () => {
 	);
 
 	console.log('orderIngredients', orderIngredients);
+
 	const ingredientCountMap = getIngredientArray(orderIngredients);
 
 	return (
@@ -74,13 +102,24 @@ export const FeedOrderDetails = () => {
 					/>
 					<div
 						className={`${styles.ingredient_right} mr-6 text text_type_digits-default`}>
-						<div>{order.sum}</div>
+						<div>{calcOrderSum(orderIngredients)}</div>
 						<CurrencyIcon type='primary' />
 					</div>
 				</div>
 			</div>
 		)
 	);
+};
+
+export const calcOrderSum = (ingredients: Ingredient[]) => {
+	let sum = 0;
+	ingredients
+		// .filter((ingredient) => ingredient.type !== 'bun')
+		.forEach((ingredient) => {
+			sum += ingredient.price;
+			// sum += ingredient.type === 'bun' ? 2 * ingredient.price : ingredient.price;
+		});
+	return sum;
 };
 
 interface IngredientCount {
@@ -117,8 +156,6 @@ function getIngredientArray(ingredients: Ingredient[]): IngredientCount[] {
 
 	// Add sorted ingredients to the result array
 	ingredientCounts.push(...sortedIngredients);
-
-	console.log(ingredientCounts);
 
 	return ingredientCounts;
 }

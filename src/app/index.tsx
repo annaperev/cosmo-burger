@@ -17,7 +17,11 @@ import { AppDispatch, useAppDispatch } from '../services/store';
 import { checkUserAuth } from '../services/auth/thunk-auth';
 import { OnlyAuth, OnlyUnAuth } from './protected-route.';
 import { Feed } from '../components/feed/feed';
-import { FeedOrderDetails } from '../components/feed/feed-order-details';
+import { OrderDetails } from '../components/feed/order-details';
+
+export const SERVER_URL_ALL_ORDERS =
+	'wss://norma.nomoreparties.space/orders/all';
+export const SERVER_URL_ORDERS = 'wss://norma.nomoreparties.space/orders';
 
 export const App = () => {
 	const dispatch: AppDispatch = useAppDispatch();
@@ -58,7 +62,8 @@ export const App = () => {
 					element={<OnlyUnAuth component={<ResetPassword />} />}
 				/>
 				<Route path='/feed' element={<Feed />} />
-				<Route path='/feed/:id' element={<FeedOrderDetails />} />
+				<Route path='/feed/:id' element={<OrderDetails />} />
+				<Route path='/profile/orders/:id' element={<OrderDetails />} />
 				<Route
 					path='/profile'
 					element={<OnlyAuth component={<ProfileLayout />} />}>
@@ -72,28 +77,38 @@ export const App = () => {
 			</Routes>
 
 			{background && (
-				<Routes>
-					<Route
-						path='/ingredients/:ingredientId'
-						element={
-							<Modal onClose={handleModalClose}>
-								<IngredientDetails />
-							</Modal>
-						}
-					/>
-				</Routes>
-			)}
-			{background && (
-				<Routes>
-					<Route
-						path='/feed/:id'
-						element={
-							<Modal onClose={handleModalClose}>
-								<FeedOrderDetails />
-							</Modal>
-						}
-					/>
-				</Routes>
+				<div>
+					<Routes>
+						<Route
+							path='/ingredients/:ingredientId'
+							element={
+								<Modal onClose={handleModalClose}>
+									<IngredientDetails />
+								</Modal>
+							}
+						/>
+					</Routes>
+					<Routes>
+						<Route
+							path='/feed/:id'
+							element={
+								<Modal onClose={handleModalClose}>
+									<OrderDetails />
+								</Modal>
+							}
+						/>
+					</Routes>
+					<Routes>
+						<Route
+							path='/profile/orders/:id'
+							element={
+								<Modal onClose={handleModalClose}>
+									<OrderDetails />
+								</Modal>
+							}
+						/>
+					</Routes>
+				</div>
 			)}
 		</div>
 	);

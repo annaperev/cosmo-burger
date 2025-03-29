@@ -12,6 +12,29 @@ import { TBurgerConstructorActions } from './burger-constructor/actions';
 import { TIngredientActions } from './ingredient/actions';
 import { TIngredientsActions } from './ingredients/actions';
 import { TOrderActions } from './order/actions';
+import { feedSlice } from './feed/slice';
+import {
+	connect,
+	disconnect,
+	onClose,
+	onConnecting,
+	onError,
+	onMessage,
+	onOpen,
+	TFeedActions,
+} from './feed/actions';
+import { socketMiddleware } from './middleware/socket-middleware';
+import {
+	connectProfile,
+	disconnectProfile,
+	onCloseProfile,
+	onConnectingProfile,
+	onErrorProfile,
+	onMessageProfile,
+	onOpenProfile,
+	TFeedProfileActions,
+} from './feed-profile/actions';
+import { feedProfileSlice } from './feed-profile/slice';
 
 export const reducer = combineReducers({
 	burgerConstructor: burgerConstructorReducer,
@@ -19,15 +42,42 @@ export const reducer = combineReducers({
 	ingredients: ingredientsReducer,
 	order: orderReducer,
 	auth: authReducer,
+	feed: feedSlice.reducer,
+	feedProfile: feedProfileSlice.reducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof reducer>;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+const feedMiddleware = socketMiddleware({
+	connect,
+	disconnect,
+	onConnecting,
+	onOpen,
+	onError,
+	onMessage,
+	onClose,
+});
+
+const feedProfileMiddleware = socketMiddleware(
+	{
+		connect: connectProfile,
+		disconnect: disconnectProfile,
+		onConnecting: onConnectingProfile,
+		onOpen: onOpenProfile,
+		onError: onErrorProfile,
+		onMessage: onMessageProfile,
+		onClose: onCloseProfile,
+	},
+	true
+);
 
 export const store = createStore(
 	reducer,
 	{},
-	composeWithDevTools(applyMiddleware(thunk))
+	composeWithDevTools(
+		applyMiddleware(thunk, feedMiddleware, feedProfileMiddleware)
+	)
 );
 
 export type TApplicationActions =
@@ -35,7 +85,9 @@ export type TApplicationActions =
 	| TBurgerConstructorActions
 	| TIngredientActions
 	| TIngredientsActions
-	| TOrderActions;
+	| TOrderActions
+	| TFeedActions
+	| TFeedProfileActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
 	ReturnType,

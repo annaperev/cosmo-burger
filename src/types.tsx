@@ -34,13 +34,19 @@ export type IngredientApiResponse = {
 	data: Ingredient[];
 };
 
-export type Order = {
+export type TOrder = {
 	_id: string;
 	ingredients: string[];
 	name: string;
-	sum: number;
 	createdAt: string;
 	status: string;
-	number: string;
+	number: number;
 	updatedAt: string;
+};
+
+export type FeedResponse = {
+	success: true;
+	orders: TOrder[];
+	total: number;
+	totalToday: number;
 };

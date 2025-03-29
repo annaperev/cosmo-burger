@@ -18,10 +18,10 @@ import {
 } from '../../services/burger-constructor/actions';
 import { Ingredient } from '../../types';
 import { useDrop } from 'react-dnd';
-import { postOrder } from '../../services/order/thunk-post-order';
+import { postOrder } from '../../services/order/thunk-order';
 import { DraggableIngredient } from './constructor-element/constructor-element';
 import {
-	calcTotalSum,
+	calcOrderSumInConstructor,
 	getConstructorIngredients,
 	getUser,
 } from '../../services/selectors';
@@ -60,7 +60,7 @@ export const BurgerConstructor = () => {
 		[ingredients, dispatch]
 	);
 
-	const totalSum = useAppSelector(calcTotalSum);
+	const totalSum = useAppSelector(calcOrderSumInConstructor);
 
 	const BunElement = ({
 		bun,

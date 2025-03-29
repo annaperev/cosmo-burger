@@ -4,11 +4,14 @@ import {
 	POST_ORDER_SUCCESS,
 	EMPTY_ORDER_NUMBER,
 	TOrderActions,
+	SET_ORDER,
 } from './actions';
+import { TOrder } from '../../types';
 
 const initialState = {
 	orderIngredientsIds: [],
 	orderNumber: null,
+	order: null,
 	isPosting: false,
 	isFailed: false,
 };
@@ -16,6 +19,7 @@ const initialState = {
 export type OrderState = {
 	orderIngredientsIds: string[];
 	orderNumber: string | null;
+	order: TOrder | null;
 	isPosting: boolean;
 	isFailed: boolean;
 };
@@ -49,6 +53,11 @@ export const orderReducer = (
 			return {
 				...state,
 				orderNumber: null,
+			};
+		case SET_ORDER:
+			return {
+				...state,
+				order: action.payload.order,
 			};
 		default:
 			return state;
