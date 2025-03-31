@@ -1,4 +1,10 @@
-import { SET_IS_AUTH_CHECKED, SET_USER, LOG_IN, LOG_OUT } from './actions';
+import {
+	SET_IS_AUTH_CHECKED,
+	SET_USER,
+	LOG_IN,
+	LOG_OUT,
+	TAuthAction,
+} from './actions';
 
 const initialState = {
 	user: null,
@@ -17,7 +23,7 @@ export type AuthState = {
 };
 export const authReducer = (
 	state = initialState,
-	action: { type: string; payload: AuthState }
+	action: TAuthAction
 ): AuthState => {
 	switch (action.type) {
 		case LOG_IN:

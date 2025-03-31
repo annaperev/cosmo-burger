@@ -2,6 +2,7 @@ import {
 	GET_INGREDIENTS,
 	GET_INGREDIENTS_FAILED,
 	GET_INGREDIENTS_SUCCESS,
+	TIngredientsActions,
 } from './actions';
 import { Ingredient } from '../../types';
 
@@ -21,7 +22,7 @@ export type IngredientsState = {
 
 export const ingredientsReducer = (
 	state = initialState,
-	action: { type: string; payload: IngredientsState }
+	action: TIngredientsActions
 ): IngredientsState => {
 	switch (action.type) {
 		case GET_INGREDIENTS:

@@ -11,13 +11,11 @@ export const IngredientDetails = () => {
 		dispatch(fetchIngredients());
 	}, []);
 
-	const ingredientId = useParams<'ingredientId'>();
+	const { ingredientId } = useParams<'ingredientId'>();
 
 	const { ingredients } = useAppSelector(getIngredients);
 
-	const ingredient = ingredients.find(
-		(item) => item._id === ingredientId.ingredientId
-	);
+	const ingredient = ingredients.find((item) => item._id === ingredientId);
 
 	return (
 		ingredient && (

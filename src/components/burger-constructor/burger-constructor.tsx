@@ -5,7 +5,11 @@ import {
 	CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { useAppDispatch, useAppSelector } from '../../services/store';
+import {
+	AppDispatch,
+	useAppDispatch,
+	useAppSelector,
+} from '../../services/store';
 import {
 	addBun,
 	addConstructorIngredient,
@@ -14,10 +18,10 @@ import {
 } from '../../services/burger-constructor/actions';
 import { Ingredient } from '../../types';
 import { useDrop } from 'react-dnd';
-import { postOrder } from '../../services/order/thunk-post-order';
+import { postOrder } from '../../services/order/thunk-order';
 import { DraggableIngredient } from './constructor-element/constructor-element';
 import {
-	calcTotalSum,
+	calcOrderSumInConstructor,
 	getConstructorIngredients,
 	getUser,
 } from '../../services/selectors';
@@ -28,7 +32,7 @@ export const BurgerConstructor = () => {
 	const user = useAppSelector(getUser);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const dispatch = useAppDispatch();
+	const dispatch: AppDispatch = useAppDispatch();
 	const handleRemove = (ingredient: Ingredient) => {
 		dispatch(removeConstructorIngredient(ingredient));
 	};
@@ -56,7 +60,7 @@ export const BurgerConstructor = () => {
 		[ingredients, dispatch]
 	);
 
-	const totalSum = useAppSelector(calcTotalSum);
+	const totalSum = useAppSelector(calcOrderSumInConstructor);
 
 	const BunElement = ({
 		bun,

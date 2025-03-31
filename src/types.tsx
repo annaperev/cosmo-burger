@@ -33,3 +33,20 @@ export type IngredientApiResponse = {
 	success: boolean;
 	data: Ingredient[];
 };
+
+export type TOrder = {
+	_id: string;
+	ingredients: string[];
+	name: string;
+	createdAt: string;
+	status: string;
+	number: number;
+	updatedAt: string;
+};
+
+export type FeedResponse = {
+	success: true;
+	orders: TOrder[];
+	total: number;
+	totalToday: number;
+};

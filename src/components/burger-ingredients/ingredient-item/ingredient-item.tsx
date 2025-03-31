@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 
 import styles from './ingredient-item.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { Ingredient } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../services/store';
 import { OPEN_MODAL_INGREDIENT } from '../../../services/ingredient/actions';
@@ -40,7 +39,7 @@ export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
 			<div
 				ref={drag}
 				className={styles.container}
-				style={{ opacity: isDragging ? 0.5 : 1 }}
+				style={{ opacity: isDragging ? 0.5 : 1, color: 'white' }}
 				onClick={() =>
 					dispatch({ type: OPEN_MODAL_INGREDIENT, payload: ingredient })
 				}
@@ -71,15 +70,3 @@ export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
 		</Link>
 	);
 };
-
-PropTypes.shape({
-	_id: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired,
-	type: PropTypes.string.isRequired,
-	price: PropTypes.number.isRequired,
-	image: PropTypes.string.isRequired,
-	proteins: PropTypes.number.isRequired,
-	fat: PropTypes.number.isRequired,
-	carbohydrates: PropTypes.number.isRequired,
-	calories: PropTypes.number.isRequired,
-}).isRequired;

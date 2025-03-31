@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { IngredientItem } from '../ingredient-item/ingredient-item';
-import PropTypes from 'prop-types';
 
 import styles from './ingredient-group.module.css';
 import { Ingredient } from '../../../types';
@@ -34,8 +33,4 @@ export const IngredientGroup: FC<IngredientGroupProps> = ({
 			</div>
 		</div>
 	);
-};
-
-IngredientGroup.propTypes = {
-	type: PropTypes.string.isRequired,
 };

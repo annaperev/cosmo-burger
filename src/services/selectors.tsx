@@ -24,7 +24,7 @@ export const getIngredients = (store: StoreType) => store.ingredients;
 
 export const getOrderNumber = (store: StoreType) => store.order;
 
-export const calcTotalSum = createSelector(
+export const calcOrderSumInConstructor = createSelector(
 	[getConstructorIngredients],
 	(burgerConstructorState) => {
 		let sumWithoutBun = 0;

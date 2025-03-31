@@ -3,15 +3,15 @@ import {
 	GET_INGREDIENTS_FAILED,
 	GET_INGREDIENTS_SUCCESS,
 } from './actions';
-import { Dispatch } from 'redux';
 import { request } from '../../utils/request-helper';
 import { Ingredient } from '../../types';
+import { AppThunk } from '../store';
 
 interface IngredientResponse {
 	success: boolean;
 	data: Ingredient[];
 }
-export const fetchIngredients = () => async (dispatch: Dispatch) => {
+export const fetchIngredients = (): AppThunk => async (dispatch) => {
 	dispatch({ type: GET_INGREDIENTS });
 
 	try {

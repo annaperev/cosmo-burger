@@ -1,6 +1,6 @@
 .modal{
 	position: relative;
-	z-index: 2;
+	z-index: 20;
 	gap: 0;
 	min-width: 450px;
 	padding: 40px;
