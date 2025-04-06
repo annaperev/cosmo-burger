@@ -7,7 +7,7 @@ import {
 } from './actions';
 import { emptyIngredient, Ingredient } from '../../types';
 
-const initialState = {
+export const initialState = {
 	bun: null,
 	ingredient: emptyIngredient,
 	ingredients: [],
@@ -24,7 +24,7 @@ export type BurgerConstructorState = {
 };
 
 export const burgerConstructorReducer = (
-	state = initialState,
+	state: BurgerConstructorState = initialState,
 	action: { type: string; payload: BurgerConstructorState }
 ): BurgerConstructorState => {
 	switch (action.type) {
