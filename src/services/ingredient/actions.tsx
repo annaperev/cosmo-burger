@@ -1,9 +1,7 @@
 import { Ingredient } from '../../types';
 
-export const OPEN_MODAL_INGREDIENT: 'OPEN_MODAL_INGREDIENT' =
-	'OPEN_MODAL_INGREDIENT';
-export const CLOSE_MODAL_INGREDIENT: 'CLOSE_MODAL_INGREDIENT' =
-	'CLOSE_MODAL_INGREDIENT';
+export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
+export const CLOSE_MODAL_INGREDIENT = 'CLOSE_MODAL_INGREDIENT';
 
 export interface IOpenModalIngredientAction {
 	readonly type: typeof OPEN_MODAL_INGREDIENT;

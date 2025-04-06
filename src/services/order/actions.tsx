@@ -1,11 +1,10 @@
 import { TOrder } from '../../types';
 
-export const POST_ORDER: 'POST_ORDER' = 'POST_ORDER';
-export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = 'POST_ORDER_SUCCESS';
-export const POST_ORDER_FAILED: 'POST_ORDER_FAILED' = 'POST_ORDER_FAILED';
-export const EMPTY_ORDER_NUMBER: 'EMPTY_ORDER_NUMBER' = 'EMPTY_ORDER_NUMBER';
-
-export const SET_ORDER: 'GET_ORDER_BY_NUMBER' = 'GET_ORDER_BY_NUMBER';
+export const POST_ORDER = 'POST_ORDER';
+export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
+export const POST_ORDER_FAILED = 'POST_ORDER_FAILED';
+export const EMPTY_ORDER_NUMBER = 'EMPTY_ORDER_NUMBER';
+export const SET_ORDER = 'GET_ORDER_BY_NUMBER';
 
 export interface IPostOrderAction {
 	readonly type: typeof POST_ORDER;

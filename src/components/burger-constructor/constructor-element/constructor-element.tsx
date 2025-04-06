@@ -24,7 +24,7 @@ export const DraggableIngredient = ({
 
 	const [, drop] = useDrop({
 		accept: 'constructor-ingredient',
-		hover: (item: { index: number }, monitor) => {
+		hover: (item: { index: number }) => {
 			if (!ref.current) return;
 			const dragIndex = item.index;
 			const hoverIndex = index;

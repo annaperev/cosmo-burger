@@ -6,22 +6,22 @@
 	width: 860px;
 }
 
-.navigation_panel{
+.navigation_panel {
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
 }
 
-.profile{
+.profile {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
 }
 
-.profile_buttons{
+.profile_buttons {
 	align-self: end;
 }
 
-.exit_button:hover{
+.exit_button:hover {
 	color: #646cff;
 }

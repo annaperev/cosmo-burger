@@ -1,45 +1,45 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: 100%;
-    margin-left: 40px;
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+	height: 100%;
+	margin-left: 40px;
 }
 
-.spacer{
-    min-height: 100px;
+.spacer {
+	min-height: 100px;
 }
 
-.footer{
-    display: grid;
-    grid-template-columns: auto auto auto;
-    align-items: center;
-    align-self: end;
-    gap: 40px;
-    height: 120px;
+.footer {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	align-items: center;
+	align-self: end;
+	gap: 40px;
+	height: 120px;
 
-    .span{
-        align-content: center;
-    }
+	.span {
+		align-content: center;
+	}
 }
 
-.list{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-height: calc(100% - 120px - 100px);
-}
-
-.scrollable{
+.list {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	overflow:scroll;
-	overflow-x:hidden;
+	max-height: calc(100% - 120px - 100px);
 }
 
-.drag_icon{
-    height: 32px;
+.scrollable {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+
+.drag_icon {
+	height: 32px;
 }
 
 .empty_top_bun,
