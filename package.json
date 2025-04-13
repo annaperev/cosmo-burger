@@ -23,6 +23,7 @@
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.8.1",
 		"cssnano": "^6.0.1",
+		"cypress": "^14.3.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.42.0",
 		"eslint-config-prettier": "^8.8.0",
@@ -66,7 +67,8 @@
 		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
 		"test": "yarn stylelint:fix && yarn lint && yarn format",
 		"prepare": "husky install",
-		"commit": "yarn test && cz"
+		"commit": "yarn test && cz",
+		"cypress": "cypress open"
 	},
 	"dependencies": {
 		"@redux-devtools/extension": "^3.3.0",
