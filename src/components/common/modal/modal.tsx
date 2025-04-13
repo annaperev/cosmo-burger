@@ -30,8 +30,9 @@ export const Modal: FC<{
 	return createPortal(
 		<div className={styles.wrapper}>
 			<ModalOverlay onClose={onClose} />
-			<div className={styles.modal}>
+			<div className={styles.modal} data-testid="modal-container">
 				<button
+				data-testid="modal-close"
 					className={`${styles.close} 'text text_type_main-large'`}
 					onClick={(e) => {
 						e.stopPropagation();
