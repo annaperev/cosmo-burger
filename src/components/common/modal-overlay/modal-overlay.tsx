@@ -6,10 +6,12 @@ export const ModalOverlay: React.FC<{ onClose: () => void }> = ({
 }) => {
 	return (
 		<div
+			aria-hidden='true'
 			className={styles.overlay}
 			onClick={(e) => {
 				e.stopPropagation();
 				onClose();
-			}}></div>
+			}}
+		/>
 	);
 };

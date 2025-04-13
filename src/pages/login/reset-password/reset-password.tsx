@@ -5,9 +5,8 @@ import {
 	PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { request } from '../../../utils/request-helper';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../../utils/hooks';
 
 export const ResetPassword = () => {

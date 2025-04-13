@@ -58,35 +58,40 @@ export const OrderDetails = () => {
 
 	return (
 		order && (
-			<div className={styles.order_details}>
+			<div className={styles.order_details} data-testid="order-details-container">
 				<p
 					style={{ alignSelf: 'center' }}
-					className='text text_type_digits-default  mb-10'>
+					className='text text_type_digits-default  mb-10'
+					data-testid="order-details-number">
 					#{order.number}
 				</p>
-				<p className='text text_type_main-medium mb-3'>{order.name}</p>
+				<p className='text text_type_main-medium mb-3' data-testid="order-details-name">{order.name}</p>
 				<p
 					style={{ color: '#00CCCC' }}
-					className='text text_type_main-small mb-15'>
+					className='text text_type_main-small mb-15'
+					data-testid="order-details-status">
 					{order.status}
 				</p>
-				<p className='text text_type_main-medium mb-6'>Состав: </p>
-				<div className={styles.ingredients}>
+				<p className='text text_type_main-medium mb-6' data-testid="order-details-composition">Состав: </p>
+				<div className={styles.ingredients} data-testid="order-details-ingredients">
 					{ingredientCountMap.map((item) => (
-						<div key={item.ingredient._id} className={styles.ingredient}>
-							<div className={styles.ingredient_left}>
+						<div key={item.ingredient._id} className={styles.ingredient} data-testid="order-details-ingredient">
+							<div className={styles.ingredient_left} data-testid="order-details-ingredient-left">
 								<img
 									className={`${styles.image}`}
 									src={item.ingredient.image}
 									alt={item.ingredient.name}
+									data-testid="order-details-ingredient-image"
 								/>
 								<p
-									className={`${styles.ingredient_name} text text_type_main-default`}>
+									className={`${styles.ingredient_name} text text_type_main-default`}
+									data-testid="order-details-ingredient-name">
 									{item.ingredient.name}
 								</p>
 							</div>
 							<div
-								className={`${styles.ingredient_right} mr-6 text text_type_digits-default`}>
+								className={`${styles.ingredient_right} mr-6 text text_type_digits-default`}
+								data-testid="order-details-ingredient-quantity">
 								<div>{item.count}</div>
 								<p>x</p>
 								<div>{item.ingredient.price}</div>

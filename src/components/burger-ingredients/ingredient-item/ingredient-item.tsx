@@ -39,6 +39,7 @@ export const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
 			<div
 				ref={drag}
 				className={styles.container}
+				data-testid="ingredient-item-card"
 				style={{ opacity: isDragging ? 0.5 : 1, color: 'white' }}
 				onClick={() =>
 					dispatch({ type: OPEN_MODAL_INGREDIENT, payload: ingredient })

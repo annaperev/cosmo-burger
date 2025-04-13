@@ -6,7 +6,7 @@ import {
 } from './actions';
 import { Ingredient } from '../../types';
 
-const initialState = {
+export const initialState = {
 	ingredients: [],
 	isFetching: false,
 	isFailed: false,

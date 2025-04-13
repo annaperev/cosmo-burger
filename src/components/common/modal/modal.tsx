@@ -30,10 +30,14 @@ export const Modal: FC<{
 	return createPortal(
 		<div className={styles.wrapper}>
 			<ModalOverlay onClose={onClose} />
-			<div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+			<div className={styles.modal} data-testid="modal-container">
 				<button
+				data-testid="modal-close"
 					className={`${styles.close} 'text text_type_main-large'`}
-					onClick={onClose}>
+					onClick={(e) => {
+						e.stopPropagation();
+						onClose();
+					}}>
 					<CloseIcon type='primary' />
 				</button>
 				<div>{children}</div>

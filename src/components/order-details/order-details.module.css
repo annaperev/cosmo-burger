@@ -1,11 +1,11 @@
-.container{
+.container {
 	justify-items: center;
 	width: 640px;
 	height: 598px;
 }
 
 .id {
-	 justify-self: center;
+	justify-self: center;
 }
 
 .check_mark {

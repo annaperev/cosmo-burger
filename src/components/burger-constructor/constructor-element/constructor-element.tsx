@@ -24,7 +24,7 @@ export const DraggableIngredient = ({
 
 	const [, drop] = useDrop({
 		accept: 'constructor-ingredient',
-		hover: (item: { index: number }, monitor) => {
+		hover: (item: { index: number }) => {
 			if (!ref.current) return;
 			const dragIndex = item.index;
 			const hoverIndex = index;
@@ -46,14 +46,19 @@ export const DraggableIngredient = ({
 	drag(drop(ref));
 
 	return (
-		<div ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-			<DragIcon type='primary' className={styles.drag_icon} />
-			<ConstructorElement
-				text={ingredient.name}
-				price={ingredient.price}
-				thumbnail={ingredient.image}
-				handleClose={() => handleRemove(ingredient)}
-			/>
-		</div>
+			<div
+				className={styles.container}
+				data-testid="constructor-element-element"
+				ref={ref}
+				style={{ opacity: isDragging ? 0.5 : 1 }}
+			>
+				<DragIcon type='primary' className={styles.drag_icon} />
+				<ConstructorElement
+					text={ingredient.name}
+					price={ingredient.price}
+					thumbnail={ingredient.image}
+					handleClose={() => handleRemove(ingredient)}
+				/>
+			</div>
 	);
 };

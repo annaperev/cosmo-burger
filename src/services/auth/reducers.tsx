@@ -6,7 +6,7 @@ import {
 	TAuthAction,
 } from './actions';
 
-const initialState = {
+export const initialState = {
 	user: null,
 	isAuthChecked: false,
 };

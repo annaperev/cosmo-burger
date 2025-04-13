@@ -19,32 +19,34 @@ export const IngredientDetails = () => {
 
 	return (
 		ingredient && (
-			<div className={styles.container}>
-				<p className='text text_type_main-large'>Детали ингридиента</p>
+			<div className={styles.container} data-testid="ingredient-details-container">
+				<p className='text text_type_main-large' data-testid="ingredient-details-title">Детали ингредиента</p>
 				<img
 					className={`${styles.image}`}
 					src={ingredient.image}
 					alt={ingredient.name}
+					data-testid="ingredient-details-image"
 				/>
-				<p className='text text_type_main-medium mb-8'>{ingredient.name}</p>
+				<p className='text text_type_main-medium mb-8' data-testid="ingredient-details-name">{ingredient.name}</p>
 				<div
-					className={`${styles.energy_value} 'text text_type_main-default text_color_inactive`}>
-					<div className='p-1'>
-						Каларии,ккал
+					className={`${styles.energy_value} 'text text_type_main-default text_color_inactive`}
+					data-testid="ingredient-details-energy">
+					<div className='p-1' data-testid="ingredient-details-calories">
+						Калoрии,ккал
 						<br />
 						{ingredient.calories}
 					</div>
-					<div className='p-1'>
+					<div className='p-1' data-testid="ingredient-details-proteins">
 						Белки, г
 						<br />
 						{ingredient.proteins}
 					</div>
-					<div className='p-1'>
+					<div className='p-1' data-testid="ingredient-details-fat">
 						Жиры, г
 						<br />
 						{ingredient.fat}
 					</div>
-					<div className='p-1'>
+					<div className='p-1' data-testid="ingredient-details-carbohydrates">
 						Углеводы, г
 						<br />
 						{ingredient.carbohydrates}

@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: row;
 	gap: 60px;
-
 }
 
 .orders {
@@ -21,7 +20,7 @@
 		width: 536px;
 		min-height: 166px;
 		padding: 24px;
-		background: #1C1C21;
+		background: #1c1c21;
 		border-radius: 24px;
 
 		.first_line {
@@ -36,11 +35,9 @@
 
 			.images {
 				display: flex;
-
-
 			}
 
-			.sum{
+			.sum {
 				display: flex;
 				gap: 6px;
 			}
@@ -54,7 +51,7 @@
 	width: 64px;
 	height: 64px;
 	text-align: center;
-	background-color: #1C1C21;
+	background-color: #1c1c21;
 	border: 2px solid #646cff;
 	border-radius: 50%;
 	object-fit: cover;
@@ -74,8 +71,6 @@
 		max-height: 350px;
 		margin-bottom: 40px;
 		overflow: hidden auto;
-
-
 	}
 }
 
@@ -113,10 +108,10 @@
 			flex-direction: column;
 			gap: 24px;
 
-			.list_row{
+			.list_row {
 				display: flex;
 				flex-direction: row;
-				gap : 16px;
+				gap: 16px;
 			}
 
 			.list {
@@ -126,13 +121,10 @@
 				max-height: 152px;
 			}
 		}
-
 	}
 
 	.info_other_lines {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
-

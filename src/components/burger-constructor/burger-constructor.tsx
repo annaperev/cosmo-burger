@@ -74,14 +74,17 @@ export const BurgerConstructor = () => {
 		emptyText: string;
 	}) => {
 		return bun ? (
-			<ConstructorElement
+			<div data-testid="burger-constructor-bun">
+<ConstructorElement
 				text={`${bun.name} (${type === 'top' ? 'верх' : 'низ'})`}
 				type={type}
 				isLocked={true}
 				price={bun.price}
 				thumbnail={bun.image}
 				extraClass='ml-10'
-			/>
+				/>
+			</div>
+			
 		) : (
 			<div className={`${emptyClass} 'text text_type_digits-medium'`}>
 				{emptyText}
@@ -98,10 +101,11 @@ export const BurgerConstructor = () => {
 	};
 
 	return (
-		<div
-			ref={drop}
-			className={`${styles.container} pb-4`}
-			style={{ opacity: isOver ? 0.5 : 1 }}>
+		<section
+			className={styles.container}
+			data-testid="burger-constructor-section"
+			style={{ opacity: isOver ? 0.5 : 1 }}
+			ref={drop}>
 			<span className={styles.spacer}></span>
 			<div className={styles.list}>
 				<BunElement
@@ -139,7 +143,7 @@ export const BurgerConstructor = () => {
 			</div>
 			<div className={styles.footer}>
 				<div>
-					<span className='text text_type_digits-medium'>{totalSum}</span>
+					<span data-testId="burger-constructor-price" className='text text_type_digits-medium'>{totalSum}</span>
 					<CurrencyIcon type='primary' />
 				</div>
 				<Button
@@ -151,6 +155,6 @@ export const BurgerConstructor = () => {
 					Оформить заказ
 				</Button>
 			</div>
-		</div>
+			</section>
 	);
 };
