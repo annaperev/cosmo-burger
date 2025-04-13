@@ -9,7 +9,7 @@ const production = process.env.NODE_ENV === 'production';
 module.exports = {
 	entry: path.resolve(__dirname, '..', './src/index.tsx'), //точка входа в наше приложение содержит абсолютный путь к index.ts
 	output: {
-		publicPath: `/`, //путь куда будут смотреть все файлы
+		publicPath: production ? `/cosmo-burger/` : `/`, // Dynamically set publicPath based on environment
 		path: path.resolve(__dirname, '..', './dist'), //путь куда будет собираться наш проект
 		filename: production
 			? 'static/scripts/[name].[contenthash].js'
