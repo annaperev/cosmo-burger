@@ -5,7 +5,7 @@ import {
 } from './actions';
 import { Ingredient } from '../../types';
 
-const initialState = {
+export const initialState = {
 	ingredient: null,
 };
 

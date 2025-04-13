@@ -8,7 +8,7 @@ import {
 } from './actions';
 import { TOrder } from '../../types';
 
-const initialState = {
+export const initialState = {
 	orderIngredientsIds: [],
 	orderNumber: null,
 	order: null,
